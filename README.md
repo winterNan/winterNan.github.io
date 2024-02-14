@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Academic Pages
 **Academic Pages is a GitHub Pages template for personal and professional portfolio-oriented websites.**
 
@@ -87,3 +88,11 @@ Unfortunately, one logistical issue with a template theme like Academic Pages th
 [![GitHub stars](https://img.shields.io/github/stars/academicpages/academicpages.github.io)](https://github.com/academicpages/academicpages.github.io)
 [![GitHub forks](https://img.shields.io/github/forks/academicpages/academicpages.github.io)](https://github.com/academicpages/academicpages.github.io/fork)
 </div>
+||||||| parent of c232f52 (Update README.md)
+# winterNan.github.io
+=======
+# winterNan.github.io
+
+<iframe src="https://mail.uu.se/owa/calendar/8e23bb1828b745d3a28259fbbc3d95b5@it.uu.se/3fc61dd5fa8849cdb01cf3c873aabf4617779926881907174420/calendar.html" 
+style=" border-width:0 " width="600" height="400" frameborder="0" scrolling="no"></iframe>
+>>>>>>> c232f52 (Update README.md)
