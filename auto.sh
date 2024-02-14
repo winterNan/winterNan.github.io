@@ -3,7 +3,7 @@
 cd ~/.emacs.d/org-agenda/
 ./getUUCal.sh
 
-# check emacs server starts here
+# Make sure that emacs is started as a server
 
 emacsclient -a false -e '(progn (org-batch-agenda "a") (org-agenda-write "/home/yuan/winterNan.github.io/index.html"))'
 cd /home/yuan/winterNan.github.io
