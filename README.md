@@ -91,6 +91,7 @@ Unfortunately, one logistical issue with a template theme like Academic Pages th
 ||||||| parent of c232f52 (Update README.md)
 # winterNan.github.io
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 # winterNan.github.io
 <<<<<<< HEAD
@@ -108,3 +109,7 @@ style=" border-width:0 " width="600" height="400" frameborder="0" scrolling="no"
 =======
 <iframe src="https://calendar.google.com/calendar/embed?height=600&wkst=1&ctz=Europe%2FBerlin&bgcolor=%23ffffff&src=eWFveTA1MzYxOUBnbWFpbC5jb20&src=aWJpbWNmMnVjbTdldXI3ZzdyaG1idW9vNHNAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ&color=%230083c6&color=%23EF6C00" style="border:solid 1px #777" width="800" height="600" frameborder="0" scrolling="no"></iframe>
 >>>>>>> 50136f5 (Update README.md)
+||||||| parent of 32c0763 (Update README.md)
+<iframe src="https://calendar.google.com/calendar/embed?height=600&wkst=1&ctz=Europe%2FBerlin&bgcolor=%23ffffff&src=eWFveTA1MzYxOUBnbWFpbC5jb20&src=aWJpbWNmMnVjbTdldXI3ZzdyaG1idW9vNHNAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ&color=%230083c6&color=%23EF6C00" style="border:solid 1px #777" width="800" height="600" frameborder="0" scrolling="no"></iframe>
+=======
+>>>>>>> 32c0763 (Update README.md)
