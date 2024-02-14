@@ -77,3 +77,58 @@ If you have bugfixes and enhancements that you would like to submit as a pull re
 Unfortunately, one logistical issue with a template theme like Academic Pages that makes it a little tricky to get bug fixes and updates to the core theme. If you use this template and customize it, you will probably get merge conflicts if you attempt to synchronize. If you want to save your various .yml configuration files and markdown files, you can delete the repository and fork it again. Or you can manually patch.
 
 
+<<<<<<< HEAD
+||||||| parent of 4cd103b (Update README.md)
+[![GitHub stars](https://img.shields.io/github/stars/academicpages/academicpages.github.io)](https://github.com/academicpages/academicpages.github.io)
+[![GitHub forks](https://img.shields.io/github/forks/academicpages/academicpages.github.io)](https://github.com/academicpages/academicpages.github.io/fork)
+</div>
+||||||| parent of c232f52 (Update README.md)
+# winterNan.github.io
+<<<<<<< HEAD
+=======
+# winterNan.github.io
+<<<<<<< HEAD
+
+<iframe src="https://mail.uu.se/owa/calendar/8e23bb1828b745d3a28259fbbc3d95b5@it.uu.se/3fc61dd5fa8849cdb01cf3c873aabf4617779926881907174420/calendar.html" 
+style=" border-width:0 " width="600" height="400" frameborder="0" scrolling="no"></iframe>
+>>>>>>> c232f52 (Update README.md)
+||||||| parent of 2f13d48 (Update README.md)
+
+<iframe src="https://mail.uu.se/owa/calendar/8e23bb1828b745d3a28259fbbc3d95b5@it.uu.se/3fc61dd5fa8849cdb01cf3c873aabf4617779926881907174420/calendar.html" 
+style=" border-width:0 " width="600" height="400" frameborder="0" scrolling="no"></iframe>
+=======
+>>>>>>> 2f13d48 (Update README.md)
+||||||| parent of 50136f5 (Update README.md)
+=======
+<iframe src="https://calendar.google.com/calendar/embed?height=600&wkst=1&ctz=Europe%2FBerlin&bgcolor=%23ffffff&src=eWFveTA1MzYxOUBnbWFpbC5jb20&src=aWJpbWNmMnVjbTdldXI3ZzdyaG1idW9vNHNAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ&color=%230083c6&color=%23EF6C00" style="border:solid 1px #777" width="800" height="600" frameborder="0" scrolling="no"></iframe>
+>>>>>>> 50136f5 (Update README.md)
+=======
+[![GitHub stars](https://img.shields.io/github/stars/academicpages/academicpages.github.io)](https://github.com/academicpages/academicpages.github.io)
+[![GitHub forks](https://img.shields.io/github/forks/academicpages/academicpages.github.io)](https://github.com/academicpages/academicpages.github.io/fork)
+</div>
+||||||| parent of c232f52 (Update README.md)
+# winterNan.github.io
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+# winterNan.github.io
+<<<<<<< HEAD
+
+<iframe src="https://mail.uu.se/owa/calendar/8e23bb1828b745d3a28259fbbc3d95b5@it.uu.se/3fc61dd5fa8849cdb01cf3c873aabf4617779926881907174420/calendar.html" 
+style=" border-width:0 " width="600" height="400" frameborder="0" scrolling="no"></iframe>
+>>>>>>> c232f52 (Update README.md)
+||||||| parent of 2f13d48 (Update README.md)
+
+<iframe src="https://mail.uu.se/owa/calendar/8e23bb1828b745d3a28259fbbc3d95b5@it.uu.se/3fc61dd5fa8849cdb01cf3c873aabf4617779926881907174420/calendar.html" 
+style=" border-width:0 " width="600" height="400" frameborder="0" scrolling="no"></iframe>
+=======
+>>>>>>> 2f13d48 (Update README.md)
+||||||| parent of 50136f5 (Update README.md)
+=======
+<iframe src="https://calendar.google.com/calendar/embed?height=600&wkst=1&ctz=Europe%2FBerlin&bgcolor=%23ffffff&src=eWFveTA1MzYxOUBnbWFpbC5jb20&src=aWJpbWNmMnVjbTdldXI3ZzdyaG1idW9vNHNAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ&color=%230083c6&color=%23EF6C00" style="border:solid 1px #777" width="800" height="600" frameborder="0" scrolling="no"></iframe>
+>>>>>>> 50136f5 (Update README.md)
+||||||| parent of 32c0763 (Update README.md)
+<iframe src="https://calendar.google.com/calendar/embed?height=600&wkst=1&ctz=Europe%2FBerlin&bgcolor=%23ffffff&src=eWFveTA1MzYxOUBnbWFpbC5jb20&src=aWJpbWNmMnVjbTdldXI3ZzdyaG1idW9vNHNAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ&color=%230083c6&color=%23EF6C00" style="border:solid 1px #777" width="800" height="600" frameborder="0" scrolling="no"></iframe>
+=======
+>>>>>>> 32c0763 (Update README.md)
+>>>>>>> 4cd103b (Update README.md)
