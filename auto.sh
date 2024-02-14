@@ -5,7 +5,7 @@ cd ~/.emacs.d/org-agenda/
 
 # check emacs server starts here
 
-emacsclient -a -e '(progn (org-batch-agenda "a") (org-agenda-write "/home/yuan/winterNan.github.io/index.html"))'
+emacsclient -a false -e '(progn (org-batch-agenda "a") (org-agenda-write "/home/yuan/winterNan.github.io/index.html"))'
 cd /home/yuan/winterNan.github.io
 git add --all
 git commit -m "update cal"
