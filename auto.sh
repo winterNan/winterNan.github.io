@@ -2,6 +2,7 @@
 
 cd ~/.emacs.d/org-agenda/
 ./getUUCal.sh
+./getUART.sh
 
 # Make sure that emacs is started as a server
 
