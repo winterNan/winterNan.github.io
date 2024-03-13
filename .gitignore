@@ -1,5 +1,10 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+||||||| parent of 06eeb9d (update)
+=======
+<<<<<<< HEAD
+>>>>>>> 06eeb9d (update)
 # Ignore the contents of the _site directory and other cache directories
 _site/
 .sass-cache/
@@ -16,6 +21,7 @@ package-lock.json
 *.md~
 *.pptx#
 *.*~
+<<<<<<< HEAD
 ||||||| parent of 02b21b1 (update)
 =======
 *.~undo-tree~
@@ -43,3 +49,10 @@ package-lock.json
 package-lock.json
 *~undo-tree~
 >>>>>>> e1af834 (update)
+||||||| parent of 06eeb9d (update)
+=======
+||||||| parent of 02b21b1 (update)
+=======
+*.~undo-tree~
+>>>>>>> 02b21b1 (update)
+>>>>>>> 06eeb9d (update)
