@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Ignore the contents of the _site directory and other cache directories
 _site/
 .sass-cache/
@@ -14,3 +15,7 @@ package-lock.json
 *.md~
 *.pptx#
 *.*~
+||||||| parent of 02b21b1 (update)
+=======
+*.~undo-tree~
+>>>>>>> 02b21b1 (update)
