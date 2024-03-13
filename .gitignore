@@ -3,6 +3,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 ||||||| parent of 06eeb9d (update)
 =======
 <<<<<<< HEAD
@@ -15,6 +16,14 @@
 =======
 <<<<<<< HEAD
 >>>>>>> 193128b (update)
+||||||| parent of 905dbd8 (update)
+=======
+<<<<<<< HEAD
+||||||| parent of 0781a3a (update)
+=======
+<<<<<<< HEAD
+>>>>>>> 0781a3a (update)
+>>>>>>> 905dbd8 (update)
 # Ignore the contents of the _site directory and other cache directories
 _site/
 .sass-cache/
@@ -109,4 +118,15 @@ package-lock.json
 =======
 *~undo-tree~
 >>>>>>> 41b35ae (update)
+<<<<<<< HEAD
 >>>>>>> 193128b (update)
+||||||| parent of 905dbd8 (update)
+=======
+||||||| parent of 0781a3a (update)
+=======
+||||||| parent of 02b21b1 (update)
+=======
+*.~undo-tree~
+>>>>>>> 02b21b1 (update)
+>>>>>>> 0781a3a (update)
+>>>>>>> 905dbd8 (update)
