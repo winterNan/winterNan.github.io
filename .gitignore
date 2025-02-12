@@ -34,5 +34,12 @@ Gemfile.lock
 
 # Ingore files created by npm
 node_modules
+<<<<<<< HEAD
 package-lock.json
 >>>>>>> b73cd24 (Initial commit)
+||||||| parent of e1af834 (update)
+package-lock.json
+=======
+package-lock.json
+*~undo-tree~
+>>>>>>> e1af834 (update)
