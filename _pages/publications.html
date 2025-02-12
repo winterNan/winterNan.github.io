@@ -1,10 +1,15 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 ||||||| parent of ec75ca4 (update)
 =======
 <<<<<<< HEAD
 >>>>>>> ec75ca4 (update)
+||||||| parent of 62d4f6a (Initial commit)
+=======
+<<<<<<< HEAD
+>>>>>>> 62d4f6a (Initial commit)
 ---
 layout: archive
 title: "Publications"
@@ -88,6 +93,7 @@ author_profile: true
 
 
 >>>>>>> a701614 (update)
+<<<<<<< HEAD
 ||||||| (empty tree)
 =======
 ---
@@ -169,3 +175,45 @@ author_profile: true
 
 >>>>>>> a701614 (update)
 >>>>>>> ec75ca4 (update)
+||||||| parent of 62d4f6a (Initial commit)
+=======
+||||||| parent of 9159d5c (Initial commit)
+=======
+---
+layout: archive
+title: "Publications"
+permalink: /publications/
+author_profile: true
+---
+
+{% if site.author.googlescholar %}
+  <div class="wordwrap">You can also find my articles on <a href="{{site.author.googlescholar}}">my Google Scholar profile</a>.</div>
+{% endif %}
+
+{% include base_path %}
+
+<!-- New style rendering if publication categories are defined -->
+{% if site.publication_category %}
+  {% for category in site.publication_category  %}
+    {% assign title_shown = false %}
+    {% for post in site.publications reversed %}
+      {% if post.category != category[0] %}
+        {% continue %}
+      {% endif %}
+      {% unless title_shown %}
+        <h2>{{ category[1].title }}</h2><hr />
+        {% assign title_shown = true %}
+      {% endunless %}
+      {% include archive-single.html %}
+    {% endfor %}
+  {% endfor %}
+{% else %}
+  {% for post in site.publications reversed %}
+    {% include archive-single.html %}
+  {% endfor %}
+{% endif %}
+
+
+
+>>>>>>> 9159d5c (Initial commit)
+>>>>>>> 62d4f6a (Initial commit)
