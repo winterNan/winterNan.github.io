@@ -2,6 +2,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 ||||||| parent of ec75ca4 (update)
 =======
 <<<<<<< HEAD
@@ -10,6 +11,14 @@
 =======
 <<<<<<< HEAD
 >>>>>>> 62d4f6a (Initial commit)
+||||||| parent of 4bb2c2c (update)
+=======
+<<<<<<< HEAD
+||||||| parent of b4c65d9 (update)
+=======
+<<<<<<< HEAD
+>>>>>>> b4c65d9 (update)
+>>>>>>> 4bb2c2c (update)
 # The following is the order of the links in the header of the website.
 #
 # Changing the order here will adjust the order and you can also add additional
@@ -167,4 +176,41 @@ main:
   - title: "Guide"
     url: /markdown/
 >>>>>>> 9159d5c (Initial commit)
+<<<<<<< HEAD
 >>>>>>> 62d4f6a (Initial commit)
+||||||| parent of 4bb2c2c (update)
+=======
+||||||| parent of b4c65d9 (update)
+=======
+||||||| parent of a701614 (update)
+=======
+# The following is the order of the links in the header of the website.
+#
+# Changing the order here will adjust the order and you can also add additional
+# links. Removing a link prevents it from showing in the header, but does not
+# prevent it from being included in the site.
+
+main:
+  - title: "Publications"
+    url: /publications/
+
+  - title: "Talks"
+    url: /talks/    
+
+  - title: "Teaching"
+    url: /teaching/    
+    
+  - title: "Portfolio"
+    url: /portfolio/
+        
+  - title: "Blog Posts"
+    url: /year-archive/
+    
+  - title: "CV"
+    url: /cv/
+    
+  - title: "Guide"
+    url: /markdown/
+>>>>>>> a701614 (update)
+>>>>>>> b4c65d9 (update)
+>>>>>>> 4bb2c2c (update)
