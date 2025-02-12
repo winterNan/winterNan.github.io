@@ -2,6 +2,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 ||||||| parent of 06eeb9d (update)
 =======
 <<<<<<< HEAD
@@ -10,6 +11,10 @@
 =======
 <<<<<<< HEAD
 >>>>>>> 62d4f6a (Initial commit)
+||||||| parent of 193128b (update)
+=======
+<<<<<<< HEAD
+>>>>>>> 193128b (update)
 # Ignore the contents of the _site directory and other cache directories
 _site/
 .sass-cache/
@@ -73,10 +78,16 @@ package-lock.json
 =======
 ||||||| (empty tree)
 =======
+||||||| parent of 41b35ae (update)
+<<<<<<< HEAD
+*.~undo-tree~
+||||||| (empty tree)
+=======
+=======
+>>>>>>> 41b35ae (update)
 # Ignore the contents of the _site directory and other cache directories
 _site/
 .sass-cache/
-
 # Ignore the directory for local files during development
 local/
 
@@ -86,6 +97,16 @@ Gemfile.lock
 # Ingore files created by npm
 node_modules
 package-lock.json
+<<<<<<< HEAD
 >>>>>>> b73cd24 (Initial commit)
 >>>>>>> 9159d5c (Initial commit)
+<<<<<<< HEAD
 >>>>>>> 62d4f6a (Initial commit)
+||||||| parent of 193128b (update)
+=======
+||||||| parent of 41b35ae (update)
+>>>>>>> b73cd24 (Initial commit)
+=======
+*~undo-tree~
+>>>>>>> 41b35ae (update)
+>>>>>>> 193128b (update)
