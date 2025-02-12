@@ -1,5 +1,10 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+||||||| parent of ec75ca4 (update)
+=======
+<<<<<<< HEAD
+>>>>>>> ec75ca4 (update)
 # The following is the order of the links in the header of the website.
 #
 # Changing the order here will adjust the order and you can also add additional
@@ -30,6 +35,7 @@ main:
     
   # - title: "Guide"
   #   url: /markdown/
+<<<<<<< HEAD
 ||||||| parent of a701614 (update)
 =======
 # The following is the order of the links in the header of the website.
@@ -90,3 +96,36 @@ main:
   - title: "Guide"
     url: /markdown/
 >>>>>>> b73cd24 (Initial commit)
+||||||| parent of ec75ca4 (update)
+=======
+||||||| parent of a701614 (update)
+=======
+# The following is the order of the links in the header of the website.
+#
+# Changing the order here will adjust the order and you can also add additional
+# links. Removing a link prevents it from showing in the header, but does not
+# prevent it from being included in the site.
+
+main:
+  - title: "Publications"
+    url: /publications/
+
+  - title: "Talks"
+    url: /talks/    
+
+  - title: "Teaching"
+    url: /teaching/    
+    
+  - title: "Portfolio"
+    url: /portfolio/
+        
+  - title: "Blog Posts"
+    url: /year-archive/
+    
+  - title: "CV"
+    url: /cv/
+    
+  - title: "Guide"
+    url: /markdown/
+>>>>>>> a701614 (update)
+>>>>>>> ec75ca4 (update)
