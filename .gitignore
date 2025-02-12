@@ -1,11 +1,6 @@
-<<<<<<< HEAD
-*.~undo-tree~
-||||||| (empty tree)
-=======
 # Ignore the contents of the _site directory and other cache directories
 _site/
 .sass-cache/
-
 # Ignore the directory for local files during development
 local/
 
@@ -15,4 +10,4 @@ Gemfile.lock
 # Ingore files created by npm
 node_modules
 package-lock.json
->>>>>>> b73cd24 (Initial commit)
+*~undo-tree~
