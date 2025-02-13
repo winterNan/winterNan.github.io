@@ -1,0 +1,14 @@
+---
+title: "SE-CNN: Convolution Neural Network Acceleration via Symbolic Value Prediction"
+collection: publications
+category: manuscripts
+permalink: /publication/2023-se-cnn
+excerpt: 'Artificial intelligence, artificial neural networks, AI accelerators.'
+date: 2023-02-13
+venue: 'IEEE Journal on Emerging and Selected Topics in Circuits and Systems (JETCAS, Volume: 13, Issue: 1, March 2023)'
+slidesurl: 'https://ieeexplore.ieee.org/document/10043725'
+paperurl: 'https://ieeexplore.ieee.org/document/10043725'
+citation: '<b>Y. Yao</b>, "SE-CNN: Convolution Neural Network Acceleration via Symbolic Value Prediction," in IEEE Journal on Emerging and Selected Topics in Circuits and Systems, vol. 13, no. 1, pp. 73-85, March 2023, doi: 10.1109/JETCAS.2023.3244767.'
+---
+
+CNNs are difficult to achieve inter-layer parallelism because of the data dependence between layers. In the paper, we propose Symbolic-Execution CNN (SE-CNN), which breaks data dependence between CNN layers via value prediction. Our insight is that in post-trained CNNs, only a subset (less than 10%) of neurons are activated (producing non-zero values) to identify patterns in inputs while most of the other neurons remain silent (producing zeros). This is because given an input image there are only a limited number of features presented. Thus, within the CNN, the neurons that are sensitive to the given features are more exercised than the others. Based on this insight, SE-CNN works in two successive phases: A parallel computation phase and a serial correction phase. In the parallel computation phase, each CNN layer starts computation simultaneously based on predicted inputs: we predict most of the neurons having zeros as inputs. For non-zero input neurons we predict their inputs for the next input image the same as the previous ones. In the serial correction phase, each layer compares the predicted inputs with the real ones to correct its computation results if necessary. If a neuron has predicted correctly its input during the parallel phase, thus the corresponding neuron passes its serial phase. Otherwise the neuron will amend its prediction with a light-weight result amendment mechanism based on the real inputs. We implement SE-CNN on top of the streaming processor of a state-of-the-art general purpose GPU (GPGPU) architecture, adding marginal hardware overheads in area and power consumption. We also provide application programming interfaces (APIs) so that CNNs that have already been implemented can directly enjoy the benefits of our technique. We utilize GPGPU-sim as our experimental platform, benchmarked with 9 well-accepted CNNs from recent years' ILSVRC contests. Experimental results show that compared to other three state-of-the-art GPU based CNN acceleration mechanisms, SE-CNN can averagely achieve 13.4x, 10.4x and 7.9x (maximally 22.0x, 18.7x and 16.4x) CNN execution speedup while maintaining over 95% of classification accuracy.
