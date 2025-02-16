@@ -3,9 +3,9 @@ title: "Accelerating Systems with Programmable Logic Components"
 collection: teaching
 type: "Graduate course"
 permalink: /teaching/asploc
-venue: "Uppsala University, Department"
+venue: "Uppsala University, Department of IT"
 date: 2024-05-01
-location: "Stockholm, Sweden"
+location: "Uppsala, Sweden"
 ---
 
 **TL;DR** Join us to gain **hands-on experience in FPGA acceleration**, **neural network optimization**, and **hardware-software co-design**, while mastering the **Xilinx Zynq-7000 FPGA system**! 🚀  
