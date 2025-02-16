@@ -1,0 +1,11 @@
+\boolfalse {citerequest}\boolfalse {citetracker}\boolfalse {pagetracker}\boolfalse {backtracker}\relax 
+\defcounter {refsection}{0}\relax 
+\beamer@sectionintoc {1}{Recap}{2}{0}{1}
+\defcounter {refsection}{0}\relax 
+\beamer@sectionintoc {2}{Cross entropy loss function}{8}{0}{2}
+\defcounter {refsection}{0}\relax 
+\beamer@sectionintoc {3}{Overfitting}{22}{0}{3}
+\defcounter {refsection}{0}\relax 
+\beamer@sectionintoc {4}{Regularization}{29}{0}{4}
+\defcounter {refsection}{0}\relax 
+\beamer@sectionintoc {5}{Choosing hyper-parameters}{36}{0}{5}

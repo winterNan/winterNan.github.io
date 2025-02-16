@@ -1,0 +1,22 @@
+\frametitle{Example, counter}
+
+    \begin{lstlisting}[language=Verilog]
+module counter(
+  output [1:0] out, input enable, input clk);
+...
+endmodule
+
+module counterReq(
+	input enable, input clk);
+
+ wire [1:0] out;
+ counter our_count(out, enable, clk);
+
+ assume property (...)
+ assert property (...)
+ assert property (...)
+
+ endmodule
+
+ \end{lstlisting}
+

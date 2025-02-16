@@ -1,0 +1,5 @@
+[0] Config.pm:311> INFO - This is Biber 2.16
+[0] Config.pm:314> INFO - Logfile is '/Users/demas/Lavoro/Uppsala/1DT109-22/Lecture/15_Improve_learning_3/.texpadtmp/1DT109-improve_learning_3.blg'
+[63] biber-darwin:340> INFO - === Mon Dec  6, 2021, 12:29:23
+[78] Biber.pm:415> INFO - Reading '/Users/demas/Lavoro/Uppsala/1DT109-22/Lecture/15_Improve_learning_3/.texpadtmp/1DT109-improve_learning_3.bcf'
+[158] Utils.pm:395> WARN - No data sources defined!
