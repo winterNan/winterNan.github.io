@@ -23,10 +23,16 @@ My research focuses on:
 
 ## Open Source & Personal Projects
 Beyond academia, I have my hobbies in **open-source projects**, particularly in:
-- **gem5** (computer architecture simulation)
-- **Linux kernel** (low-level systems development)
+- **[gem5](https://www.gem5.org/)** (computer architecture simulation)
+- **Linux kernel** (low-level systems development. And yes, I hate bisects)
 
 I also work on **private projects for fun**, typically during the summer break. Some of these can be found in the **Tools** section.
+
+## Besides programming languages
+Myself speaks:
+- **Chinese** (Native)
+- **English** (Fluent)
+- **Swedish** (Basic communication)
 
 ---
 Feel free to connect with me or check out my projects!
