@@ -7,7 +7,7 @@ redirect_from:
   - /about.html
 ---
 
-Hi! My name is Yuan Yao, or 姚<sup>[<a href="https://en.wikipedia.org/wiki/Yao_(surname)">1</a>]</sup>远 in Chinese.
+Hi! My name is Yuan Yao, or 姚<sup>[<a href="https://en.wikipedia.org/wiki/Yao_(surname)">1</a>]</sup>远<sup>[<a href="https://chinese.yabla.com/chinese-english-pinyin-dictionary.php?define=%E8%BF%9C">2</a>]</sup> in Chinese.
 
 ## Professional Background
 I am currently an **Assistant Professor** at the **Uppsala Computer Architecture Research Team (UART), Uppsala University, Sweden**.
