@@ -10,6 +10,8 @@ location: "Uppsala, Sweden"
 
 Code repo for the TangramFP paper: [TangramFP: Energy-Efficient, Bit-Parallel, Multiply-Accumulate for Deep Neural Networks](https://ieeexplore.ieee.org/document/10763567) published in 2024 IEEE 36th International Symposium on Computer Architecture and High Performance Computing (SBAC-PAD). <br><b>Best paper candidate!</b>
 
+[Github link for the project](https://github.com/winterNan/TangramFP)
+
 What the repo contains?  
 ======
 

@@ -10,6 +10,8 @@ location: "Stockholm, Sweden"
 
 In this project I modified PARSEC-3.0 benchmarks using static linking with gem5 hooks for the x86_64 architecture.
 
+[Github link for the project](https://github.com/winterNan/gem5-parsec)
+
 The [PARSEC](http://parsec.cs.princeton.edu) (Princeton Application Repository for Shared-Memory Computers) benchmark suite, developed by Princeton University, is a comprehensive collection of over 13 parallel applications representing a variety of emerging workloads. These applications are multithreaded using one or more of the following programming models: **Pthreads, OpenMP, and Intel TBB**.  
 To see which applications support which programming models, refer to the overview table on PARSEC's [Wiki page](http://wiki.cs.princeton.edu/index.php/PARSEC).
 

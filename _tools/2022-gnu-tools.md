@@ -8,7 +8,9 @@ date: 2022-08-01
 location: "Stockholm, Sweden"
 ---
 
-GNU Tools Configuration Archive
+Some of my personal configurations for some of my personal favoriate GNU Tools
+
+[Github link for the project](https://github.com/winterNan/config-gnu-tools)
 
 Welcome to my personal collection of GNU tools configurations! 🎉 Over the years, I have fine-tuned my setup to enhance productivity and efficiency, and I believe it's time to share it. This repository will be updated periodically as I recall and refine more configurations.
 
