@@ -1,0 +1,795 @@
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+
+<meta charset="utf-8">
+
+
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>[gem5 Q&amp;A] Squashing Instructions after Page Table Fault - Yuan Yao’s Pages</title>
+
+
+
+
+
+
+
+<meta property="og:locale" content="en-US">
+<meta property="og:site_name" content="Yuan Yao's Pages">
+<meta property="og:title" content="[gem5 Q&amp;A] Squashing Instructions after Page Table Fault">
+
+
+  <link rel="canonical" href="http://localhost:4000/posts/2023/09/29/">
+  <meta property="og:url" content="http://localhost:4000/posts/2023/09/29/">
+
+
+
+  <meta property="og:description" name="description" content="Hello, I am currently trying to locate the code that is used to squash instructions if a Page Table Fault is triggered in the O3 CPU.After using the PageTableWalker Debug Flags, my current guess would be gem5/src/arch/x86/pagetable_walker.cc in line 199.Furthermore I inspected the files in the src/cpu/o3 directory, but couldn’t find anything specific to squashing instructions after a fault.Is my assumption correct, that the O3 CPU implementation does not handle these things on its own, but the architectural part of the implementation does it? I am missing something, feel free to point it out.">
+
+
+
+
+
+  
+
+  
+
+
+
+
+
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2023-09-29T00:00:00+00:00">
+
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "Person",
+      "name" : "Yuan Yao",
+      "url" : "http://localhost:4000",
+      "sameAs" : null
+    }
+  </script>
+
+
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="http://localhost:4000/feed.xml" type="application/atom+xml" rel="alternate" title="Yuan Yao's Pages Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="http://localhost:4000/assets/css/main.css">
+
+<meta http-equiv="cleartype" content="on">
+    
+
+<!-- start custom head snippets -->
+
+<!-- favicon from https://commons.wikimedia.org/wiki/File:OOjs_UI_icon_academic-progressive.svg -->
+<link rel="apple-touch-icon" sizes="180x180" href="http://localhost:4000/images/apple-touch-icon-180x180.png"/>
+<link rel="icon" type="image/svg+xml" href="http://localhost:4000/images/favicon.svg"/>
+<link rel="icon" type="image/png" href="http://localhost:4000/images/favicon-32x32.png" sizes="32x32"/>
+<link rel="icon" type="image/png" href="http://localhost:4000/images/favicon-192x192.png" sizes="192x192"/>
+<link rel="manifest" href="http://localhost:4000/images/manifest.json"/>
+<link rel="icon" href="/images/favicon.ico"/>
+<meta name="theme-color" content="#ffffff"/>
+<link rel="stylesheet" href="http://localhost:4000/assets/css/academicons.css"/>
+
+
+<!-- Support for MatJax -->
+<script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <button><div class="navicon"></div></button>
+        <ul class="visible-links">
+          <li class="masthead__menu-item masthead__menu-item--lg"><a href="http://localhost:4000/">Yuan Yao's Pages</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/publications/">Publications</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/teaching/">Teaching</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/tools/">Tools</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/year-archive/">Blog Posts</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/cv/">CV</a></li>
+          
+        </ul>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    
+
+
+
+
+
+<div id="main" role="main">
+  
+
+
+  <div class="sidebar sticky">
+  
+
+
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  <div class="author__avatar">
+    
+    	<img src="http://localhost:4000/images/profile.png" class="author__avatar" alt="Yuan Yao">
+    
+  </div>
+
+  <div class="author__content">
+    <h3 class="author__name">Yuan Yao</h3>
+    
+    <p class="author__bio">Assistant Professor <br> Computer Science <br> Research group UART <br> Uppsala University, Sweden</p>
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      <!-- Font Awesome icons / Biographic information  -->
+      
+        <li class="author__desktop"><i class="fa-solid fa-location-dot icon-pad-right" aria-hidden="true"></i>Uppsala, Sweden</li>
+      
+      
+        <li class="author__desktop"><i class="fas fa-fw fa-building-columns icon-pad-right" aria-hidden="true"></i>Uppsala University</li>
+      
+      
+      
+        <li><a href="mailto:yuan.yao@it.uu.se"><i class="fas fa-fw fa-envelope icon-pad-right" aria-hidden="true"></i>Email</a></li>
+      
+
+      <!-- Font Awesome and Academicons icons / Academic websites -->
+            
+      
+      
+      
+      
+        <li><a href="http://orcid.org/0000-0001-9448-5595 "><i class="ai ai-orcid ai-fw icon-pad-right"></i>ORCID</a></li>
+      
+                              
+      
+      
+
+      <!-- Font Awesome icons / Repositories and software development -->
+      
+            
+            
+      
+        <li><a href="https://github.com/winterNan"><i class="fab fa-fw fa-github icon-pad-right" aria-hidden="true"></i>GitHub</a></li>
+      
+            
+            
+
+      <!-- Font Awesome icons / Social media -->
+      
+      
+            
+      
+                  
+                  
+      
+            
+            
+            
+      
+            
+                  
+            
+      
+            
+            
+      
+              
+      
+                      
+      
+      
+            
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[gem5 Q&amp;A] Squashing Instructions after Page Table Fault">
+    <meta itemprop="description" content="Hello, I am currently trying to locate the code that is used to squash instructions if a Page Table Fault is triggered in the O3 CPU.After using the PageTableWalker Debug Flags, my current guess would be gem5/src/arch/x86/pagetable_walker.cc in line 199.Furthermore I inspected the files in the src/cpu/o3 directory, but couldn’t find anything specific to squashing instructions after a fault.Is my assumption correct, that the O3 CPU implementation does not handle these things on its own, but the architectural part of the implementation does it? I am missing something, feel free to point it out.">
+    <meta itemprop="datePublished" content="September 29, 2023">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 class="page__title" itemprop="headline">[gem5 Q&amp;A] Squashing Instructions after Page Table Fault
+</h1>
+          
+            <p class="page__meta"><i class="fa fa-clock" aria-hidden="true"></i> 
+
+
+  
+	  10 minute read
+	
+</p>
+          
+        
+        
+        
+          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Published:</strong> <time datetime="2023-09-29T00:00:00+00:00">September 29, 2023</time></p>
+            
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        <p>Hello, 
+I am currently trying to locate the code that is used to squash instructions if a Page Table Fault is triggered in the O3 CPU.
+After using the PageTableWalker Debug Flags, my current guess would be gem5/src/arch/x86/pagetable_walker.cc in line 199.
+Furthermore I inspected the files in the src/cpu/o3 directory, but couldn’t find anything specific to squashing instructions after a fault.</p>
+
+<p>Is my assumption correct, that the O3 CPU implementation does not handle these things on its own, but the architectural part of the implementation does it? I am missing something, feel free to point it out.</p>
+
+<p>A short addition. I also couldn’t find a specific check for the user/supervisor Page Table Attribute anywhere.
+Are there parts in the code, where specific bits are checked or does gem5 uses some other kind of implementation here?</p>
+
+<h1 id="my-answer">My answer</h1>
+<p>If I understand it correctly, a Page Table Fault instruction is not squashed 
+but <em>not executed</em>. The instruction generating a fault is marked ready to 
+commit. Then, during the commit phase, the fault generated by the instruction 
+is handled.</p>
+
+<p>To explain this in more detail let me I take an example of how Page Fault of 
+a load is handled with gem5:</p>
+
+<p>1, DefaultIEW<Impl>::executeInsts() =&gt; ldstQueue.executeLoad(Inst) =&gt; inst-&gt;InitiateAcc() (dynamic 
+inst) =&gt; staticInst-&gt;initiateAcc() (static inst) =&gt; initiateMemRead (dynamic inst again) =&gt; 
+cpu-&gt;pushRequest() =&gt; LSQ-&gt;pushRequest() =&gt; Follow this function chain, gem5 will ultimately start the 
+translation via the MMU module.</Impl></p>
+
+<p>2, Later after the translation is done, the page fault and the faulty instruction is 
+marked by <em>translation-&gt;finish(…)</em> in pagetable_walker.cc (via 
+walker:recevTimingResp, assuming that there is a page walk). The ‘finish()’ function is 
+defined in the O3 pipeline components. In this case: 
+LSQ<Impl>::SingleDataRequest::finish.</Impl></p>
+
+<p>3, Because the faulty instruction is not yet committed, 
+DefaultIEW<Impl>::executeInsts() will check the instruction again, but this time the 
+instruction is marked as 'TranslationCompleted'. However since &lt;fault != NoFault&gt;, so 
+the instruction will be marked as executed and is forward to the commit stage 
+(iewState-&gt;instToCommit(inst)).</Impl></p>
+
+<p>4, As the instruction moves to the head of ROB, the commitInst() function of the 
+commit unit will call commitHead(), which further calls cpu-&gt;trap(), then 
+fault-&gt;invoke() to handle the fault. Different faults have different invoke 
+functions. To your question, please take a look at PageFault::invoke() at 
+arch/x86/faults.cc. The CPU then setup the CR2 register etc and will read the ROM to 
+launch the procedure to transfer control to OS fault handler. (The microrom is 
+defined in romutil.py)</p>
+
+<p>5, And after the page handler is finished the fault instruction (still at 
+the head of ROB) will be re-executed.</p>
+
+<p>The above is based on gem5 21.0.0.0 but I don’t think the code changes much 
+for the above discussions.</p>
+
+<p>Hope this helps.</p>
+
+<p>PS. Page access write is checked at the translate function in tlb.cc.</p>
+
+<h1 id="following-up-question">Following up question</h1>
+<p>Hi Yuan,</p>
+
+<p>thank you very much for your detailed response. My understanding of the fault handling in gem5 is getting better and better. Using debug flags, I can trace the control flow during the execution of my code.
+I am currently inspecting tlb.cc in further detail, but I am still searching for the exact check for my problem.
+To further specify my question:</p>
+
+<p>During the attempt to access kernel memory, the “user/supervisor” (U/S) pagetable attribute is used to check whether this page table belongs to kernel memory or not. If I want to access the memory, it should raise the page table fault. I am looking for this specific check. My goal is, to experiment with gem5 and to customize it. Currently, the instruction is not executed when raising a Page Table Fault. In a first step, I want to change the check in order to execute the instruction although it wants to access kernel memory. So I explicitly search for this check inside this command chain during the Page Fault handling.</p>
+
+<h1 id="answer-2">Answer 2</h1>
+<p>Assuming we’re talking about the x86 architecture, line 471 in tlb.cc is where
+the check in question happens:</p>
+
+<p>https://github.com/gem5/gem5/blob/48a40cf2f5182a82de360b7efa497d82e06b1631/src/arch/x86/tlb.cc#L471</p>
+
+<p>Note that the raw bits of the PTE have been abstracted out in the gem5 TLB
+entry data structure, hence properties such as entry-&gt;user.</p>
+
+<h1 id="following-up-2">Following up 2</h1>
+<p>thank you for your help. I experimented with the checks and I was a bit suprised, that the Page Fault seems not to be raised after a unsuccessful user/supervisor check. After enabling the necessary debug flags and including more Debug statements into the code, I observed that the Page Fault is not raised after entering the If-statement, but before it. Here is a short snippet of my outputs:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>14442496349500: system.repeat_switch_cpus5.mmu.dtb: inUser = 1 | entry_user = 1 | badWrite = 0            (Line 470)
+14442496349500: system.repeat_switch_cpus5.mmu.dtb: Checks done!                                                      (Line 485)
+14442496350000: system.repeat_switch_cpus5.mmu.dtb: inUser = 1 | entry_user = 1 | badWrite = 0
+14442496350000: system.repeat_switch_cpus5.mmu.dtb: Checks done!
+14442496361000: Page-Fault: RIP 0x402da9: vector 14: #PF(0x4) at 0xffff880019688110
+14442496387000: system.repeat_switch_cpus5.mmu.itb: inUser = 1 | entry_user = 0 | badWrite = 1
+14442496387000: system.repeat_switch_cpus5.mmu.itb: ***************************** If [Line 471]. *****************************************
+14442496424000: system.repeat_switch_cpus5.mmu.dtb: inUser = 0 | entry_user = 0 | badWrite = 1
+14442496424000: system.repeat_switch_cpus5.mmu.dtb: Checks done!
+14442496464000: system.repeat_switch_cpus5.mmu.dtb: inUser = 0 | entry_user = 0 | badWrite = 1
+14442496464000: system.repeat_switch_cpus5.mmu.dtb: Checks done!
+</code></pre></div></div>
+
+<p>I expected, that the Page Fault is raised at line 476, but it doesn’t seem so.</p>
+
+<p>For further context, my goal is to get this code (https://github.com/IAIK/meltdown/blob/master/reliability.c) working in gem5. Currently, “libkdump_read” (https://github.com/IAIK/meltdown/blob/master/libkdump/libkdump.c#L528) only returns 0 in gem5.</p>
+
+<p>My guess is, that I need to change much more than initially thought. With reference to the answer of Yuan, I guess that I also need to change stuff in the function chain for handling a fault. Can anyone confirm this?</p>
+
+<h1 id="answer-3">Answer 3</h1>
+<p>The “Page-Fault” message is printed out on the constructor of a fault, so 
+gdb that line and move up frames can help.</p>
+
+<p>By the way, a page fault can also be generated during page walks (see 
+here<a href="https://github.com/gem5/gem5/blob/48a40cf2f5182a82de360b7efa497d82e06b1631/src/arch/x86/pagetable_walker.cc#L491C22-L491C22">https://github.com/gem5/gem5/blob/48a40cf2f5182a82de360b7efa497d82e06b1631/src/arch/x86/pagetable_walker.cc#L491C22-L491C22</a>).
+ The faulty PTE is not inserted into TLB. Debug flag PageTableWalker tracks all these 
+errands.</p>
+
+<h1 id="following-up-3">Following up 3</h1>
+<p>I have used more debug flags, which increased the execution time by a lot, but I got some new information out of it:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Addresses : var = 39b765b0, start = 198325b0, phys = 198325b0 (output in meltdown "reliability.c" code, after line 39)
+ 
+O3CPU: Ticking main, O3CPU.
+15059411234500: system.repeat_switch_cpus1.mmu.dtb: Translating vaddr 0x7ffe39b765b0.
+15059411234500: system.repeat_switch_cpus1.mmu.dtb: In protected mode.
+15059411234500: system.repeat_switch_cpus1.mmu.dtb: Paging enabled.
+15059411234500: system.repeat_switch_cpus1.mmu.dtb: pageAlignedVaddr for lookup: 0x7ffe39b76000
+15059411234500: system.repeat_switch_cpus1.mmu.dtb: Handling a TLB miss for address 0x7ffe39b765b0 at pc 0x401b34.                    &lt;--- First a TLB miss
+15059411234500: system.repeat_switch_cpus1: Scheduling next tick!
+[...]
+O3CPU: Ticking main, O3CPU.
+15059411262000: system.repeat_switch_cpus1: Scheduling next tick!
+15059411262500: system.repeat_switch_cpus1.mmu.dtb.walker: Got long mode PTE entry 0x00000019832067.
+15059411262500: system.repeat_switch_cpus1.mmu.dtb: Translating vaddr 0x7ffe39b765b0.
+15059411262500: system.repeat_switch_cpus1.mmu.dtb: In protected mode.
+15059411262500: system.repeat_switch_cpus1.mmu.dtb: Paging enabled.
+15059411262500: system.repeat_switch_cpus1.mmu.dtb: pageAlignedVaddr for lookup: 0x7ffe39b76000
+15059411262500: system.repeat_switch_cpus1.mmu.dtb: Entry found with paddr 0x19832000, doing protection checks.
+15059411262500: system.repeat_switch_cpus1.mmu.dtb: inUser = 1 | entry_user = 1 | badWrite = 0
+15059411262500: system.repeat_switch_cpus1.mmu.dtb: Translated 0x7ffe39b765b0 -&gt; 0x198325b0.                                                 &lt;--- Translated virt to phys
+[...]
+O3CPU: Ticking main, O3CPU.
+15059514670500: system.repeat_switch_cpus1.mmu.dtb: Translating vaddr 0xffff8800198325b0.
+15059514670500: system.repeat_switch_cpus1.mmu.dtb: In protected mode.
+15059514670500: system.repeat_switch_cpus1.mmu.dtb: Paging enabled.
+15059514670500: system.repeat_switch_cpus1.mmu.dtb: pageAlignedVaddr for lookup: 0xffff880019832000
+15059514670500: system.repeat_switch_cpus1.mmu.dtb: Handling a TLB miss for address 0xffff8800198325b0 at pc 0x402e09.
+15059514670500: system.repeat_switch_cpus1: Removing committed instruction [tid:0] PC (0x402e09=&gt;0x402e10).(1=&gt;2) [sn:251369]
+15059514670500: system.repeat_switch_cpus1: Removing committed instruction [tid:0] PC (0x402e10=&gt;0x402e13).(0=&gt;1) [sn:251370]
+15059514670500: system.repeat_switch_cpus1: Removing committed instruction [tid:0] PC (0x402e13=&gt;0x402e15).(0=&gt;1) [sn:251371]
+15059514670500: system.repeat_switch_cpus1: Removing committed instruction [tid:0] PC (0x402e15=&gt;0x402e17).(0=&gt;1) [sn:251372]
+15059514670500: system.repeat_switch_cpus1: Removing committed instruction [tid:0] PC (0x402e15=&gt;0x402e17).(1=&gt;2) [sn:251373]
+15059514670500: system.repeat_switch_cpus1: Removing committed instruction [tid:0] PC (0x402e15=&gt;0x402e17).(2=&gt;3) [sn:251374]
+15059514670500: system.repeat_switch_cpus1: Removing committed instruction [tid:0] PC (0x402e17=&gt;0x402e1e).(0=&gt;1) [sn:251375]
+15059514670500: system.repeat_switch_cpus1: Removing instruction, [tid:0] [sn:251369] PC (0x402e09=&gt;0x402e10).(1=&gt;2)
+15059514670500: system.repeat_switch_cpus1: Removing instruction, [tid:0] [sn:251370] PC (0x402e10=&gt;0x402e13).(0=&gt;1)
+15059514670500: system.repeat_switch_cpus1: Removing instruction, [tid:0] [sn:251371] PC (0x402e13=&gt;0x402e15).(0=&gt;1)
+15059514670500: system.repeat_switch_cpus1: Removing instruction, [tid:0] [sn:251372] PC (0x402e15=&gt;0x402e17).(0=&gt;1)
+15059514670500: system.repeat_switch_cpus1: Removing instruction, [tid:0] [sn:251373] PC (0x402e15=&gt;0x402e17).(1=&gt;2)
+15059514670500: system.repeat_switch_cpus1: Removing instruction, [tid:0] [sn:251374] PC (0x402e15=&gt;0x402e17).(2=&gt;3)
+15059514670500: system.repeat_switch_cpus1: Removing instruction, [tid:0] [sn:251375] PC (0x402e17=&gt;0x402e1e).(0=&gt;1)
+15059514670500: system.repeat_switch_cpus1: Scheduling next tick!
+[...]
+O3CPU: Ticking main, O3CPU.
+15059514683000: system.repeat_switch_cpus1: Scheduling next tick!
+15059514683500: system.repeat_switch_cpus1.mmu.dtb.walker: Got long mode PML4 entry 0x00000000000000.
+15059514683500: system.repeat_switch_cpus1.mmu.dtb.walker: Raising page fault.
+[...]
+O3CPU: Ticking main, O3CPU.
+15059514688500: Page-Fault: RIP 0x402e1e: vector 14: #PF(0x4) at 0xffff8800198325b0
+15059514688500: system.repeat_switch_cpus1: Scheduling next tick!
+</code></pre></div></div>
+
+<p>This is a snippet of the debugging output.</p>
+
+<p>For more context: https://github.com/IAIK/meltdown/blob/master/reliability.c  (kaslr disabled in gem5 full-system simulation kernel command line)</p>
+<ul>
+  <li>First, the address is translated from virt to phys without a problem (line 30)</li>
+  <li>Next, the code wants to access the translated kernel address (line 49). Here seems to be the problem. It gets a TLB miss for the address, but after that the PageTableWalker gets the PML4 entry 0x00000000000000 and raises a Page fault.</li>
+  <li>My expectation (and goal) is, that during the read of the kernel address, the Page Table Walk is successfull until the Page Table Entry.</li>
+</ul>
+
+<p>Now I have a few questions:</p>
+
+<ol>
+  <li>After the TLB miss at tick 15059514670500, the CPU removes many commited instructions at the PC the miss occured. Why are these instructions commited, although the Page Fault is being raised?</li>
+  <li>Does anyone have an idea, why the Page Fault already occurs at the PML4 entry level? And why this entry is only 0x0?</li>
+</ol>
+
+<h1 id="answer-4">Answer 4</h1>
+<p>You observed that the check on line 471 in tlb.cc did not seem to be the one
+causing the fault in the case you were looking at.  It occurs to me that the
+line 471 check is for a <em>resident</em> page.  If the page is <em>not</em> resident, some
+other check would apply, and the fault might be raised when the OS examines
+the PTE to determine what to do with a disallowed access to a non-resident
+page.</p>
+
+<p>Could that be the scenario you were looking at?  That would indeed seem to be
+more involved, though at the point gem5 does the interrupt for a non-resident
+page (one not in the TLB) you might be able to more directly do a check of the
+PTE.  To do that you would need to emulate walking the page tables (hoping
+that all the relevant page table pages are themselves resident).</p>
+
+<p>Yes, possibly a bit of a mess …</p>
+
+
+        
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+  
+
+
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="http://localhost:4000/tags/#gem5" class="page__taxonomy-item" rel="tag">gem5</a><span class="sep">, </span>
+    
+      
+      
+      <a href="http://localhost:4000/tags/#mail-list-q-a" class="page__taxonomy-item" rel="tag">mail-list Q&A</a>
+    
+    </span>
+  </p>
+
+
+
+
+      </footer>
+
+      
+
+<section class="page__share">
+  
+    <h4 class="page__share-title">Share on</h4>
+  
+
+  <a href="https://x.com/intent/post?text=http://localhost:4000/posts/2023/09/29/" class="btn btn--x" title="Share on X"><i class="fab fa-x-twitter" aria-hidden="true"></i><span> X (formerly Twitter)</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/posts/2023/09/29/" class="btn btn--facebook" title="Share on Facebook"><i class="fab fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/posts/2023/09/29/" class="btn btn--linkedin" title="Share on LinkedIn"><i class="fab fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+
+
+  <nav class="pagination">
+    
+      <a href="#" class="pagination--pager disabled">Previous</a>
+    
+    
+      <a href="http://localhost:4000/posts/2024/01/18/" class="pagination--pager" title="[gem5 Q&amp;A] Microcode_ROM Instruction and fetchRomMicroop() Function
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      
+        <h4 class="page__related-title">You May Also Enjoy</h4>
+      
+      <div class="grid__wrapper">
+        
+          
+
+
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://localhost:4000/posts/2024/10/21/" rel="permalink">[gem5 Q&amp;A] Why there is miss prediction of non-control instructions
+</a>
+      
+    </h2>
+    
+    
+      <p class="page__meta"><i class="fa fa-clock" aria-hidden="true"></i> 
+
+
+  
+	  1 minute read
+	
+</p>
+    
+
+        
+         <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Published:</strong> <time datetime="2024-10-21T00:00:00+00:00">October 21, 2024</time></p>
+        
+
+    
+    <p class="archive__item-excerpt" itemprop="description"><p>Hello,
+In function checkSignalsAndUpdate(ThreadID tid) in src/cpu/o3/fetch.cc file, it 
+seems miss prediction can still happen from commit and decode even if 
+mispredictInst-&gt;isControl() is false.</p>
+
+</p>
+    
+    
+    
+
+  </article>
+</div>
+
+        
+          
+
+
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://localhost:4000/posts/2024/10/02/" rel="permalink">[gem5 Q&amp;A] Page Walker: Where the PTE hits in the memory hierarchy
+</a>
+      
+    </h2>
+    
+    
+      <p class="page__meta"><i class="fa fa-clock" aria-hidden="true"></i> 
+
+
+  
+	  1 minute read
+	
+</p>
+    
+
+        
+         <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Published:</strong> <time datetime="2024-10-02T00:00:00+00:00">October 02, 2024</time></p>
+        
+
+    
+    <p class="archive__item-excerpt" itemprop="description"><p>Hi, I am working on the x86 page walker in gem5. I understand that the page
+walker accesses the page walker cache (PWC) first and, in case of a miss,
+it accesses the memory hierarchy (L1, then L2, then L3 caches and lastly
+the memory). This happens through the packetpointer <em>read</em>, which reads the
+physical address of the entry at each level (PML4, PDP.. etc.).</p>
+
+</p>
+    
+    
+    
+
+  </article>
+</div>
+
+        
+          
+
+
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://localhost:4000/posts/2024/09/17/" rel="permalink">[gem5 tech mark] Why are stores in the SQ assumed to have valid addresses?
+</a>
+      
+    </h2>
+    
+    
+      <p class="page__meta"><i class="fa fa-clock" aria-hidden="true"></i> 
+
+
+  
+	  2 minute read
+	
+</p>
+    
+
+        
+         <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Published:</strong> <time datetime="2024-09-17T00:00:00+00:00">September 17, 2024</time></p>
+        
+
+    
+    <p class="archive__item-excerpt" itemprop="description"><p>Hi, I’m doing some gem5 hacking for research and have been confused over the 
+timing of when loads search the store queue (SQ) and when stores have valid 
+addresses that can be compared against. Gem5 includes an assert in the read() 
+method in the LSQ unit that the addresses of all stores before the executing 
+loads are valid, but I don’t understand how this can be guaranteed in OoO 
+execution.</p>
+
+</p>
+    
+    
+    
+
+  </article>
+</div>
+
+        
+          
+
+
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://localhost:4000/posts/2024/09/10/" rel="permalink">[gem5 Q&amp;A] Fixed I/O Address Range in x86
+</a>
+      
+    </h2>
+    
+    
+      <p class="page__meta"><i class="fa fa-clock" aria-hidden="true"></i> 
+
+
+  
+	  2 minute read
+	
+</p>
+    
+
+        
+         <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Published:</strong> <time datetime="2024-09-10T00:00:00+00:00">September 10, 2024</time></p>
+        
+
+    
+    <p class="archive__item-excerpt" itemprop="description"><p>Hi all, I’m trying to model the SPEC HPC benchmark suite in gem5 with an x86 ISA
+using KVM. As a result, I am trying to link the “_addr” version of the
+m5ops against the binaries in order to model the region of interest.
+Unfortunately, I get the following error when trying to build the sample
+hello world example:</p>
+
+</p>
+    
+    
+    
+
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+</div>
+
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+<a href="/sitemap/">Sitemap</a>
+<!-- end custom footer snippets -->
+
+        
+
+
+<div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Follow:</strong></li>
+    
+    
+      <li><a href="http://github.com/winterNan"><i class="fab fa-github" aria-hidden="true"></i> GitHub</a></li>
+    
+    
+    
+    <li><a href="http://localhost:4000/feed.xml"><i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+
+<div class="page__footer-copyright">
+  &copy; 2025 Yuan Yao, Powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://github.com/academicpages/academicpages.github.io">AcademicPages</a>, a fork of <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.<br />
+  Site last updated 2025-03-10
+</div>
+
+      </footer>
+    </div>
+
+    <script src="http://localhost:4000/assets/js/main.min.js"></script>
+
+
+
+
+
+
+
+
+  </body>
+</html>
+

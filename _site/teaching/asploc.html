@@ -1,0 +1,490 @@
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+
+<meta charset="utf-8">
+
+
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>Accelerating Systems with Programmable Logic Components - Yuan Yao’s Pages</title>
+
+
+
+
+
+
+
+<meta property="og:locale" content="en-US">
+<meta property="og:site_name" content="Yuan Yao's Pages">
+<meta property="og:title" content="Accelerating Systems with Programmable Logic Components">
+
+
+  <link rel="canonical" href="http://localhost:4000/teaching/asploc">
+  <meta property="og:url" content="http://localhost:4000/teaching/asploc">
+
+
+
+  <meta property="og:description" name="description" content="TL;DR Join us to gain hands-on experience in FPGA acceleration, neural network optimization, and hardware-software co-design, while mastering the Xilinx Zynq-7000 FPGA system! 🚀I have been the course responsible since 2020.">
+
+
+
+
+
+  
+
+  
+
+
+
+
+
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2024-05-01T00:00:00+00:00">
+
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "Person",
+      "name" : "Yuan Yao",
+      "url" : "http://localhost:4000",
+      "sameAs" : null
+    }
+  </script>
+
+
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="http://localhost:4000/feed.xml" type="application/atom+xml" rel="alternate" title="Yuan Yao's Pages Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="http://localhost:4000/assets/css/main.css">
+
+<meta http-equiv="cleartype" content="on">
+    
+
+<!-- start custom head snippets -->
+
+<!-- favicon from https://commons.wikimedia.org/wiki/File:OOjs_UI_icon_academic-progressive.svg -->
+<link rel="apple-touch-icon" sizes="180x180" href="http://localhost:4000/images/apple-touch-icon-180x180.png"/>
+<link rel="icon" type="image/svg+xml" href="http://localhost:4000/images/favicon.svg"/>
+<link rel="icon" type="image/png" href="http://localhost:4000/images/favicon-32x32.png" sizes="32x32"/>
+<link rel="icon" type="image/png" href="http://localhost:4000/images/favicon-192x192.png" sizes="192x192"/>
+<link rel="manifest" href="http://localhost:4000/images/manifest.json"/>
+<link rel="icon" href="/images/favicon.ico"/>
+<meta name="theme-color" content="#ffffff"/>
+<link rel="stylesheet" href="http://localhost:4000/assets/css/academicons.css"/>
+
+
+<!-- Support for MatJax -->
+<script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <button><div class="navicon"></div></button>
+        <ul class="visible-links">
+          <li class="masthead__menu-item masthead__menu-item--lg"><a href="http://localhost:4000/">Yuan Yao's Pages</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/publications/">Publications</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/teaching/">Teaching</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/tools/">Tools</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/year-archive/">Blog Posts</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/cv/">CV</a></li>
+          
+        </ul>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    
+
+
+
+
+
+<div id="main" role="main">
+  
+
+
+  <div class="sidebar sticky">
+  
+
+
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  <div class="author__avatar">
+    
+    	<img src="http://localhost:4000/images/profile.png" class="author__avatar" alt="Yuan Yao">
+    
+  </div>
+
+  <div class="author__content">
+    <h3 class="author__name">Yuan Yao</h3>
+    
+    <p class="author__bio">Assistant Professor <br> Computer Science <br> Research group UART <br> Uppsala University, Sweden</p>
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      <!-- Font Awesome icons / Biographic information  -->
+      
+        <li class="author__desktop"><i class="fa-solid fa-location-dot icon-pad-right" aria-hidden="true"></i>Uppsala, Sweden</li>
+      
+      
+        <li class="author__desktop"><i class="fas fa-fw fa-building-columns icon-pad-right" aria-hidden="true"></i>Uppsala University</li>
+      
+      
+      
+        <li><a href="mailto:yuan.yao@it.uu.se"><i class="fas fa-fw fa-envelope icon-pad-right" aria-hidden="true"></i>Email</a></li>
+      
+
+      <!-- Font Awesome and Academicons icons / Academic websites -->
+            
+      
+      
+      
+      
+        <li><a href="http://orcid.org/0000-0001-9448-5595 "><i class="ai ai-orcid ai-fw icon-pad-right"></i>ORCID</a></li>
+      
+                              
+      
+      
+
+      <!-- Font Awesome icons / Repositories and software development -->
+      
+            
+            
+      
+        <li><a href="https://github.com/winterNan"><i class="fab fa-fw fa-github icon-pad-right" aria-hidden="true"></i>GitHub</a></li>
+      
+            
+            
+
+      <!-- Font Awesome icons / Social media -->
+      
+      
+            
+      
+                  
+                  
+      
+            
+            
+            
+      
+            
+                  
+            
+      
+            
+            
+      
+              
+      
+                      
+      
+      
+            
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Accelerating Systems with Programmable Logic Components">
+    <meta itemprop="description" content="TL;DR Join us to gain hands-on experience in FPGA acceleration, neural network optimization, and hardware-software co-design, while mastering the Xilinx Zynq-7000 FPGA system! 🚀I have been the course responsible since 2020.">
+    <meta itemprop="datePublished" content="May 01, 2024">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 class="page__title" itemprop="headline">Accelerating Systems with Programmable Logic Components
+</h1>
+          
+        
+        
+        
+          <p> Graduate course, <i>Uppsala University, Department of IT</i>, 2024 </p>
+            
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        <p><strong>TL;DR</strong> Join us to gain <strong>hands-on experience in FPGA acceleration</strong>, <strong>neural network optimization</strong>, and <strong>hardware-software co-design</strong>, while mastering the <strong>Xilinx Zynq-7000 FPGA system</strong>! 🚀<br />
+<em>I have been the course responsible since 2020.</em></p>
+
+<h1 id="course-description">Course description</h1>
+
+<h1 id="accelerating-systems-with-programmable-logic-components"><strong>Accelerating Systems with Programmable Logic Components</strong></h1>
+
+<h2 id="course-overview"><strong>Course Overview</strong></h2>
+<p><strong>TL;DR</strong> With the increasing computational demands of modern AI applications, FPGA-based accelerators provide a powerful and efficient solution for accelerating neural network workloads.<br />
+This course offers a <strong>holistic understanding of the FPGA design flow</strong>, focusing on <strong>accelerator development using Xilinx’s Zynq-7000 FPGA system</strong>.</p>
+
+<h3 id="learn-how-to-do-and-verify-hardware-design">Learn how to do and verify hardware design</h3>
+<p>Students will gain hands-on experience in <strong>RTL modeling, synthesis, and verification</strong>, while also exploring <strong>accelerator design space exploration</strong> to <strong>compare software and hardware implementations</strong>, understanding <strong>fundamental design principles</strong> for hardware acceleration, and <strong>developing custom FPGA-based accelerators</strong>.</p>
+
+<h3 id="learn-how-to-apply-a-hardware-design-to-accelerate-neural-networks">Learn how to apply a hardware design to accelerate neural networks</h3>
+<p>Beyond hardware development, the course also covers <strong>neural network principles</strong>, enabling students to <strong>design and train their own neural networks in software (Python)</strong>, identify performance bottlenecks, and <strong>accelerate</strong> them using the FPGA knowledge.</p>
+
+<h3 id="final-goal">Final goal</h3>
+<p>The final part of the course involves <strong>integrating</strong> custom hardware accelerators into a <strong>heterogeneous FPGA system</strong> consisting of a <strong>CPU collaborating with a user-defined hardware accelerator</strong>.</p>
+
+<h2 id="key-learning-outcomes"><strong>Key Learning Outcomes</strong></h2>
+<p>By the end of this course, students will be able to:</p>
+<ul>
+  <li><strong>Goal: Understand and master the complete FPGA design flow</strong>, from RTL modeling to hardware synthesis and system integration.</li>
+  <li><strong>Milestone 1: Write synthesizable Verilog HDL</strong> and verify designs using <strong>SystemVerilog</strong>.</li>
+  <li><strong>Milestone 2: Identify bottlenecks in a neural network</strong> running on a CPU with software profiling.</li>
+  <li><strong>Milestone 3: Develop FPGA-based accelerators</strong> for the computational bottleneck in the neural network.</li>
+  <li><strong>Milestone 4: Integrate a custom accelerator into the Xilinx Zynq-7000 FPGA system</strong>.</li>
+  <li><strong>Milestone 5: Deploy the complete neural network system on an FPGA</strong>, efficiently offloading bottleneck operations to hardware accelerators.</li>
+</ul>
+
+<h2 id="course-structure"><strong>Course Structure</strong></h2>
+
+<h3 id="1-introduction-to-fpga-design-flow-and-xilinx-zynq-7000"><strong>1. Introduction to FPGA Design Flow and Xilinx Zynq-7000</strong></h3>
+<ul>
+  <li>Overview of FPGA-based acceleration and its benefits.</li>
+  <li>Understanding the <strong>Xilinx Zynq-7000 FPGA system</strong> architecture.</li>
+  <li>Introduction to <strong>RTL modeling using Verilog</strong>.</li>
+  <li>FPGA <strong>synthesis, place &amp; route, and implementation</strong>.</li>
+</ul>
+
+<h3 id="2-design-verification-with-systemverilog"><strong>2. Design Verification with SystemVerilog</strong></h3>
+<ul>
+  <li>Importance of hardware verification in FPGA designs.</li>
+  <li>Writing <strong>testbenches using SystemVerilog</strong> for design validation.</li>
+  <li>Functional and timing verification techniques.</li>
+</ul>
+
+<h3 id="3-neural-network-principles-and-bottleneck-identification"><strong>3. Neural Network Principles and Bottleneck Identification</strong></h3>
+<ul>
+  <li><strong>Introduction to deep learning</strong> and neural network algorithms.</li>
+  <li>Training and evaluating a <strong>neural network in Python</strong>.</li>
+  <li><strong>Profiling and identifying bottlenecks</strong> in neural network computations.</li>
+</ul>
+
+<h3 id="4-fpga-based-neural-network-acceleration"><strong>4. FPGA-Based Neural Network Acceleration</strong></h3>
+<ul>
+  <li>Designing a <strong>hardware matrix multiplier</strong> for neural network acceleration.</li>
+  <li>Writing synthesizable <strong>HDL code</strong> for matrix multiplication.</li>
+  <li><strong>Integrating the hardware accelerator into the FPGA system</strong>.</li>
+  <li>Offloading computationally intensive operations to the accelerator while running non-bottleneck tasks on the CPU.</li>
+</ul>
+
+<h3 id="5-customizing-your-own-fpga-based-system"><strong>5. Customizing Your Own FPGA-Based System</strong></h3>
+<ul>
+  <li>Building a <strong>heterogeneous system</strong> on the FPGA with a <strong>CPU and user-controllable accelerator</strong>.</li>
+  <li><strong>Hardware-software co-design</strong> for optimal performance.</li>
+  <li>Deploying the complete <strong>neural network accelerator system</strong> on the FPGA.</li>
+</ul>
+
+<!-- ## **Final Project: End-to-End FPGA-Based Neural Network Deployment**   -->
+<!-- In this **hands-on** project, students will:   -->
+<!-- 1. **Identify bottlenecks** in a neural network running in Python.   -->
+<!-- 2. **Design and implement a hardware accelerator (matrix multiplier)** for optimized performance.   -->
+<!-- 3. **Integrate the accelerator into the Xilinx Zynq-7000 FPGA system**.   -->
+<!-- 4. **Customize an FPGA-based system**, consisting of a CPU and a user-defined hardware accelerator.   -->
+<!-- 5. **Deploy the neural network onto the FPGA**, ensuring efficient workload distribution: -->
+<!--    - **Non-bottleneck code** runs on the CPU.   -->
+<!--    - **Bottleneck operations** are offloaded to the hardware accelerator.   -->
+
+<h2 id="target-audience"><strong>Target Audience</strong></h2>
+<p>This course is designed for students, researchers, and professionals interested in FPGA-based accelerator design and hardware-aware AI optimization.<br />
+Prior experience with <strong>Verilog, SystemVerilog, or neural networks</strong> is helpful but not required.</p>
+
+<h1 id="course-materials">Course materials</h1>
+
+<p><em>I am the main author for all the slides, lab manuals, and project manuals.</em></p>
+
+<h2 id="lecture-slides">Lecture slides</h2>
+
+<p><a href="https://winternan.github.io/files/01_Introduction/introduction.pptx">Lecture 1-Introduction</a> <br />
+<a href="https://winternan.github.io/files/02_Motivating an Accelerating System/motivating.pptx">Lecture 2-Motivation</a> <br />
+<a href="https://winternan.github.io/files/03_FPGAs, Verilog I/FPGA+Verilog I.pptx">Lecture 3-Verilog I</a> <br />
+<a href="https://winternan.github.io/files/04_FPGAs, Verilog II/Verilog II.pptx">Lecture 4-Verilog II</a> <br />
+<a href="https://winternan.github.io/files/05_FPGAs, Verilog III/Verilog III.pptx">Lecture 5-Verilog III</a> <br />
+<a href="https://winternan.github.io/files/06_Synthesis I/Syntiesis I.pptx">Lecture 6-Synthesis I</a> <br />
+<a href="https://winternan.github.io/files/07_Synthesis II/Synthesis II.pptx">Lecture 7-Synthesis II</a> <br />
+<a href="https://winternan.github.io/files/08_Verification I/Verification I.pptx">Lecture 8-Verification I</a> <br />
+<a href="https://winternan.github.io/files/09_Verification II/Verification II.pptx">Lecture 9-Verification II</a> <br />
+<a href="https://winternan.github.io/files/10_Neural network I/Neural network I.pptx">Lecture 10-Neural network I</a> <br />
+<a href="https://winternan.github.io/files/11_Neural network II/Neural network II.pptx">Lecture 11-Neural network II</a> <br />
+<a href="https://winternan.github.io/files/12_Convolutional neural network/Convolutional neural network.pptx">Lecture 12-Convolutional neural network</a> <br /></p>
+
+<h2 id="lab-manuals">Lab manuals</h2>
+
+<p><a href="https://winternan.github.io/files/Lab/Lab1.pdf">Lab1-Interface with a keyboard</a> <br />
+<a href="https://winternan.github.io/files/Lab/Lab2.pdf">Lab2-Implement a hardware matrix multiplier</a> <br />
+<a href="https://winternan.github.io/files/Lab/Lab3.pdf">Lab3-Verification your matrix multiplier</a> <br /></p>
+
+<h2 id="project-manuals">Project manuals</h2>
+
+<p><a href="https://winternan.github.io/files/Project/Training a NN with Python.pdf">Project 1-Training a NN with Python</a> <br />
+<a href="https://winternan.github.io/files/Project/MiniZed Tutorial Application.pdf">Project 2-MiniZed Tutorial Application</a> <br />
+<a href="https://winternan.github.io/files/Project/PS_PL_communication.pdf">Project 3-PS-PL Communication</a> <br />
+<a href="https://winternan.github.io/files/Project/Pudb.pdf">Project 4-Debug and profile python code</a> <br /></p>
+
+
+        
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+
+
+      </footer>
+
+      
+
+<section class="page__share">
+  
+    <h4 class="page__share-title">Share on</h4>
+  
+
+  <a href="https://x.com/intent/post?text=http://localhost:4000/teaching/asploc" class="btn btn--x" title="Share on X"><i class="fab fa-x-twitter" aria-hidden="true"></i><span> X (formerly Twitter)</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/teaching/asploc" class="btn btn--facebook" title="Share on Facebook"><i class="fab fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/teaching/asploc" class="btn btn--linkedin" title="Share on LinkedIn"><i class="fab fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+
+
+  <nav class="pagination">
+    
+      <a href="http://localhost:4000/teaching/dark" class="pagination--pager" title="Computer Architecture I
+">Previous</a>
+    
+    
+      <a href="#" class="pagination--pager disabled">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+<a href="/sitemap/">Sitemap</a>
+<!-- end custom footer snippets -->
+
+        
+
+
+<div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Follow:</strong></li>
+    
+    
+      <li><a href="http://github.com/winterNan"><i class="fab fa-github" aria-hidden="true"></i> GitHub</a></li>
+    
+    
+    
+    <li><a href="http://localhost:4000/feed.xml"><i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+
+<div class="page__footer-copyright">
+  &copy; 2025 Yuan Yao, Powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://github.com/academicpages/academicpages.github.io">AcademicPages</a>, a fork of <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.<br />
+  Site last updated 2025-03-10
+</div>
+
+      </footer>
+    </div>
+
+    <script src="http://localhost:4000/assets/js/main.min.js"></script>
+
+
+
+
+
+
+
+
+  </body>
+</html>
+

@@ -1,0 +1,379 @@
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+
+<meta charset="utf-8">
+
+
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>Silent Stores in the Battery-less Internet of Things: A Good Idea? - Yuan Yao’s Pages</title>
+
+
+
+
+
+
+
+<meta property="og:locale" content="en-US">
+<meta property="og:site_name" content="Yuan Yao's Pages">
+<meta property="og:title" content="Silent Stores in the Battery-less Internet of Things: A Good Idea?">
+
+
+  <link rel="canonical" href="http://localhost:4000/publication/2023-silent">
+  <meta property="og:url" content="http://localhost:4000/publication/2023-silent">
+
+
+
+  <meta property="og:description" name="description" content="sensor network;store buffer;silent store;low power devices">
+
+
+
+
+
+  
+
+  
+
+
+
+
+
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2023-12-15T00:00:00+00:00">
+
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "Person",
+      "name" : "Yuan Yao",
+      "url" : "http://localhost:4000",
+      "sameAs" : null
+    }
+  </script>
+
+
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="http://localhost:4000/feed.xml" type="application/atom+xml" rel="alternate" title="Yuan Yao's Pages Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="http://localhost:4000/assets/css/main.css">
+
+<meta http-equiv="cleartype" content="on">
+    
+
+<!-- start custom head snippets -->
+
+<!-- favicon from https://commons.wikimedia.org/wiki/File:OOjs_UI_icon_academic-progressive.svg -->
+<link rel="apple-touch-icon" sizes="180x180" href="http://localhost:4000/images/apple-touch-icon-180x180.png"/>
+<link rel="icon" type="image/svg+xml" href="http://localhost:4000/images/favicon.svg"/>
+<link rel="icon" type="image/png" href="http://localhost:4000/images/favicon-32x32.png" sizes="32x32"/>
+<link rel="icon" type="image/png" href="http://localhost:4000/images/favicon-192x192.png" sizes="192x192"/>
+<link rel="manifest" href="http://localhost:4000/images/manifest.json"/>
+<link rel="icon" href="/images/favicon.ico"/>
+<meta name="theme-color" content="#ffffff"/>
+<link rel="stylesheet" href="http://localhost:4000/assets/css/academicons.css"/>
+
+
+<!-- Support for MatJax -->
+<script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <button><div class="navicon"></div></button>
+        <ul class="visible-links">
+          <li class="masthead__menu-item masthead__menu-item--lg"><a href="http://localhost:4000/">Yuan Yao's Pages</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/publications/">Publications</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/teaching/">Teaching</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/tools/">Tools</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/year-archive/">Blog Posts</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/cv/">CV</a></li>
+          
+        </ul>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    
+
+
+
+
+
+<div id="main" role="main">
+  
+
+
+  <div class="sidebar sticky">
+  
+
+
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  <div class="author__avatar">
+    
+    	<img src="http://localhost:4000/images/profile.png" class="author__avatar" alt="Yuan Yao">
+    
+  </div>
+
+  <div class="author__content">
+    <h3 class="author__name">Yuan Yao</h3>
+    
+    <p class="author__bio">Assistant Professor <br> Computer Science <br> Research group UART <br> Uppsala University, Sweden</p>
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      <!-- Font Awesome icons / Biographic information  -->
+      
+        <li class="author__desktop"><i class="fa-solid fa-location-dot icon-pad-right" aria-hidden="true"></i>Uppsala, Sweden</li>
+      
+      
+        <li class="author__desktop"><i class="fas fa-fw fa-building-columns icon-pad-right" aria-hidden="true"></i>Uppsala University</li>
+      
+      
+      
+        <li><a href="mailto:yuan.yao@it.uu.se"><i class="fas fa-fw fa-envelope icon-pad-right" aria-hidden="true"></i>Email</a></li>
+      
+
+      <!-- Font Awesome and Academicons icons / Academic websites -->
+            
+      
+      
+      
+      
+        <li><a href="http://orcid.org/0000-0001-9448-5595 "><i class="ai ai-orcid ai-fw icon-pad-right"></i>ORCID</a></li>
+      
+                              
+      
+      
+
+      <!-- Font Awesome icons / Repositories and software development -->
+      
+            
+            
+      
+        <li><a href="https://github.com/winterNan"><i class="fab fa-fw fa-github icon-pad-right" aria-hidden="true"></i>GitHub</a></li>
+      
+            
+            
+
+      <!-- Font Awesome icons / Social media -->
+      
+      
+            
+      
+                  
+                  
+      
+            
+            
+            
+      
+            
+                  
+            
+      
+            
+            
+      
+              
+      
+                      
+      
+      
+            
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Silent Stores in the Battery-less Internet of Things: A Good Idea?">
+    <meta itemprop="description" content="sensor network;store buffer;silent store;low power devices">
+    <meta itemprop="datePublished" content="December 15, 2023">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 class="page__title" itemprop="headline">Silent Stores in the Battery-less Internet of Things: A Good Idea?
+</h1>
+          
+        
+        
+        
+          <p>Published in <i>Proceedings of the 2023 International Conference on Embedded Wireless Systems and Networks (EWSN)</i>, 2023 </p>
+            
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        <p>We present experimental results investigating the use of silent stores in the battery-less Internet of Things (IoT). Silent stores occur in a program when the value being written onto memory exactly matches the memory content; general-purpose computing systems exploit silent stores to improve memory throughput. Battery-less IoT devices, on the other hand, rely on ambient energy harvesting as the only power source. Erratic energy patterns, however, cause frequent power failures, rendering executions intermittent and thereby requiring the use of energy-hungry non-volatile memory (NVM) to persist program states. The question we seek to answer is whether intermittently-computing IoT devices may reap any benefit from silent stores – or from a related variation called temporary silent store – as a way to save energy by sparing NVM operations. Our results point to a negative answer. Albeit in principle we observe copious (temporary) silent stores in staple battery-less IoT benchmarks, resource limitations of IoT devices and the features of modern NVM technology, such as FRAM, largely neutralize their impact on the energy figures in practice. In actual executions, for example, we measure a mere 2.2% energy consumption improvement, on average. The (negative) results we present here, obtained based on common IoT architectures such as ARM Cortex M* and MSP430 microcontrollers, raise awareness on the features of battery-less IoT devices and inform future research efforts.</p>
+
+
+        
+          <p style="font-size: smaller">Recommended citation: Weining Song, Stefanos Kaxiras, Luca Mottola, Thiemo Voigt, and Yuan Yao, ''Silent Stores in the Battery-less Internet of Things: A Good Idea?'' in Proceedings of the 2023 International Conference on embedded Wireless Systems and Networks (EWSN), Association for Computing Machinery, New York, NY, USA, 40-45.<br /><a href="https://dl.acm.org/doi/10.5555/3639940.3639945">Download Paper</a> | <a href="https://dl.acm.org/doi/10.5555/3639940.3639945">Download Slides</a></p>
+        
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+
+
+      </footer>
+
+      
+
+<section class="page__share">
+  
+    <h4 class="page__share-title">Share on</h4>
+  
+
+  <a href="https://x.com/intent/post?text=http://localhost:4000/publication/2023-silent" class="btn btn--x" title="Share on X"><i class="fab fa-x-twitter" aria-hidden="true"></i><span> X (formerly Twitter)</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/publication/2023-silent" class="btn btn--facebook" title="Share on Facebook"><i class="fab fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/publication/2023-silent" class="btn btn--linkedin" title="Share on LinkedIn"><i class="fab fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+
+
+  <nav class="pagination">
+    
+      <a href="http://localhost:4000/publication/2023-se-cnn" class="pagination--pager" title="SE-CNN: Convolution Neural Network Acceleration via Symbolic Value Prediction
+">Previous</a>
+    
+    
+      <a href="http://localhost:4000/publication/2024-tada" class="pagination--pager" title="TaDA: Task Decoupling Architecture for the Battery-less Internet of Things
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+<a href="/sitemap/">Sitemap</a>
+<!-- end custom footer snippets -->
+
+        
+
+
+<div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Follow:</strong></li>
+    
+    
+      <li><a href="http://github.com/winterNan"><i class="fab fa-github" aria-hidden="true"></i> GitHub</a></li>
+    
+    
+    
+    <li><a href="http://localhost:4000/feed.xml"><i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+
+<div class="page__footer-copyright">
+  &copy; 2025 Yuan Yao, Powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://github.com/academicpages/academicpages.github.io">AcademicPages</a>, a fork of <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.<br />
+  Site last updated 2025-03-10
+</div>
+
+      </footer>
+    </div>
+
+    <script src="http://localhost:4000/assets/js/main.min.js"></script>
+
+
+
+
+
+
+
+
+  </body>
+</html>
+

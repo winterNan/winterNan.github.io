@@ -1,0 +1,445 @@
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+
+<meta charset="utf-8">
+
+
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>Computer Architecture I - Yuan Yao’s Pages</title>
+
+
+
+
+
+
+
+<meta property="og:locale" content="en-US">
+<meta property="og:site_name" content="Yuan Yao's Pages">
+<meta property="og:title" content="Computer Architecture I">
+
+
+  <link rel="canonical" href="http://localhost:4000/teaching/dark">
+  <meta property="og:url" content="http://localhost:4000/teaching/dark">
+
+
+
+  <meta property="og:description" name="description" content="TL;DR Introduction to Computer ArchitectureI have been the course responsible since 2021">
+
+
+
+
+
+  
+
+  
+
+
+
+
+
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2024-01-01T00:00:00+00:00">
+
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "Person",
+      "name" : "Yuan Yao",
+      "url" : "http://localhost:4000",
+      "sameAs" : null
+    }
+  </script>
+
+
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="http://localhost:4000/feed.xml" type="application/atom+xml" rel="alternate" title="Yuan Yao's Pages Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="http://localhost:4000/assets/css/main.css">
+
+<meta http-equiv="cleartype" content="on">
+    
+
+<!-- start custom head snippets -->
+
+<!-- favicon from https://commons.wikimedia.org/wiki/File:OOjs_UI_icon_academic-progressive.svg -->
+<link rel="apple-touch-icon" sizes="180x180" href="http://localhost:4000/images/apple-touch-icon-180x180.png"/>
+<link rel="icon" type="image/svg+xml" href="http://localhost:4000/images/favicon.svg"/>
+<link rel="icon" type="image/png" href="http://localhost:4000/images/favicon-32x32.png" sizes="32x32"/>
+<link rel="icon" type="image/png" href="http://localhost:4000/images/favicon-192x192.png" sizes="192x192"/>
+<link rel="manifest" href="http://localhost:4000/images/manifest.json"/>
+<link rel="icon" href="/images/favicon.ico"/>
+<meta name="theme-color" content="#ffffff"/>
+<link rel="stylesheet" href="http://localhost:4000/assets/css/academicons.css"/>
+
+
+<!-- Support for MatJax -->
+<script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <button><div class="navicon"></div></button>
+        <ul class="visible-links">
+          <li class="masthead__menu-item masthead__menu-item--lg"><a href="http://localhost:4000/">Yuan Yao's Pages</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/publications/">Publications</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/teaching/">Teaching</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/tools/">Tools</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/year-archive/">Blog Posts</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/cv/">CV</a></li>
+          
+        </ul>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    
+
+
+
+
+
+<div id="main" role="main">
+  
+
+
+  <div class="sidebar sticky">
+  
+
+
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  <div class="author__avatar">
+    
+    	<img src="http://localhost:4000/images/profile.png" class="author__avatar" alt="Yuan Yao">
+    
+  </div>
+
+  <div class="author__content">
+    <h3 class="author__name">Yuan Yao</h3>
+    
+    <p class="author__bio">Assistant Professor <br> Computer Science <br> Research group UART <br> Uppsala University, Sweden</p>
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      <!-- Font Awesome icons / Biographic information  -->
+      
+        <li class="author__desktop"><i class="fa-solid fa-location-dot icon-pad-right" aria-hidden="true"></i>Uppsala, Sweden</li>
+      
+      
+        <li class="author__desktop"><i class="fas fa-fw fa-building-columns icon-pad-right" aria-hidden="true"></i>Uppsala University</li>
+      
+      
+      
+        <li><a href="mailto:yuan.yao@it.uu.se"><i class="fas fa-fw fa-envelope icon-pad-right" aria-hidden="true"></i>Email</a></li>
+      
+
+      <!-- Font Awesome and Academicons icons / Academic websites -->
+            
+      
+      
+      
+      
+        <li><a href="http://orcid.org/0000-0001-9448-5595 "><i class="ai ai-orcid ai-fw icon-pad-right"></i>ORCID</a></li>
+      
+                              
+      
+      
+
+      <!-- Font Awesome icons / Repositories and software development -->
+      
+            
+            
+      
+        <li><a href="https://github.com/winterNan"><i class="fab fa-fw fa-github icon-pad-right" aria-hidden="true"></i>GitHub</a></li>
+      
+            
+            
+
+      <!-- Font Awesome icons / Social media -->
+      
+      
+            
+      
+                  
+                  
+      
+            
+            
+            
+      
+            
+                  
+            
+      
+            
+            
+      
+              
+      
+                      
+      
+      
+            
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Computer Architecture I">
+    <meta itemprop="description" content="TL;DR Introduction to Computer ArchitectureI have been the course responsible since 2021">
+    <meta itemprop="datePublished" content="January 01, 2024">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 class="page__title" itemprop="headline">Computer Architecture I
+</h1>
+          
+        
+        
+        
+          <p> Undergraduate course, <i>Uppsala University, Department of IT</i>, 2024 </p>
+            
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        <p><strong>TL;DR</strong> Introduction to Computer Architecture<br />
+<em>I have been the course responsible since 2021</em></p>
+
+<h1 id="introduction-to-computer-architecture">Introduction to Computer Architecture</h1>
+
+<h2 id="course-overview">Course Overview</h2>
+<p>This course provides an introduction to the fundamental principles of computer architecture, focusing on the design, operation, and performance of modern computer systems. Using the MIPS architecture as a foundation, students will explore how computers execute programs at the lowest level, how hardware components interact, and how performance can be optimized through various architectural techniques.</p>
+
+<h2 id="course-content">Course Content</h2>
+<p>The course covers the following key topics:</p>
+
+<ul>
+  <li><strong>Understanding the MIPS Instruction Set Architecture (ISA)</strong>
+    <ul>
+      <li>Assembly instructions and how they map to hardware execution</li>
+    </ul>
+  </li>
+  <li><strong>Logic-level components</strong>
+    <ul>
+      <li>Logic design, processor datapath, and control logic</li>
+    </ul>
+  </li>
+  <li><strong>Instruction-level components</strong>
+    <ul>
+      <li>Pipelining, hazards, branch prediction, caches, and parallelism</li>
+    </ul>
+  </li>
+  <li><strong>System-level components</strong>
+    <ul>
+      <li>Virtual memory, input/output mechanisms</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="learning-objectives">Learning Objectives</h2>
+<p>By the end of this course, students will be able to:</p>
+
+<ul>
+  <li>Understand the core components of a computer system, including the processor, memory, and input/output devices.</li>
+  <li>Analyze and reason about first-order performance metrics.</li>
+  <li>Understand the hardware/software interface and its role in system design.</li>
+  <li>Write and debug assembly language programs.</li>
+</ul>
+
+<h2 id="teaching-methodology-flipped-classroom">Teaching Methodology: Flipped Classroom</h2>
+<p>This course adopts a <strong>flipped classroom</strong> approach:</p>
+
+<ul>
+  <li>Students watch video lectures at home to learn theoretical concepts.</li>
+  <li>Classroom sessions focus on problem-solving exercises, discussions, and hands-on activities.</li>
+</ul>
+
+<h3 id="benefits-of-the-flipped-classroom">Benefits of the Flipped Classroom</h3>
+<ul>
+  <li>Encourages active learning and student engagement.</li>
+  <li>Provides more opportunities for collaborative problem-solving.</li>
+  <li>Enhances conceptual understanding through guided practice.</li>
+</ul>
+
+<h2 id="prerequisites">Prerequisites</h2>
+<ul>
+  <li>Basic understanding of digital logic and programming is recommended.</li>
+</ul>
+
+<h2 id="assessment">Assessment</h2>
+<ul>
+  <li>Homework assignments and quizzes</li>
+  <li>Programming tasks in assembly language</li>
+  <li>Final exam assessing theoretical and practical understanding</li>
+</ul>
+
+
+        
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+
+
+      </footer>
+
+      
+
+<section class="page__share">
+  
+    <h4 class="page__share-title">Share on</h4>
+  
+
+  <a href="https://x.com/intent/post?text=http://localhost:4000/teaching/dark" class="btn btn--x" title="Share on X"><i class="fab fa-x-twitter" aria-hidden="true"></i><span> X (formerly Twitter)</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/teaching/dark" class="btn btn--facebook" title="Share on Facebook"><i class="fab fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/teaching/dark" class="btn btn--linkedin" title="Share on LinkedIn"><i class="fab fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+
+
+  <nav class="pagination">
+    
+      <a href="#" class="pagination--pager disabled">Previous</a>
+    
+    
+      <a href="http://localhost:4000/teaching/asploc" class="pagination--pager" title="Accelerating Systems with Programmable Logic Components
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+<a href="/sitemap/">Sitemap</a>
+<!-- end custom footer snippets -->
+
+        
+
+
+<div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Follow:</strong></li>
+    
+    
+      <li><a href="http://github.com/winterNan"><i class="fab fa-github" aria-hidden="true"></i> GitHub</a></li>
+    
+    
+    
+    <li><a href="http://localhost:4000/feed.xml"><i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+
+<div class="page__footer-copyright">
+  &copy; 2025 Yuan Yao, Powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://github.com/academicpages/academicpages.github.io">AcademicPages</a>, a fork of <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.<br />
+  Site last updated 2025-03-10
+</div>
+
+      </footer>
+    </div>
+
+    <script src="http://localhost:4000/assets/js/main.min.js"></script>
+
+
+
+
+
+
+
+
+  </body>
+</html>
+

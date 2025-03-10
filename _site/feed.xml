@@ -1,0 +1,477 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-03-10T14:08:26+00:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Yuan Yao’s Pages</title><subtitle>personal description</subtitle><author><name>Yuan Yao</name><email>yuan.yao@it.uu.se</email></author><entry><title type="html">[gem5 Q&amp;amp;A] Why there is miss prediction of non-control instructions</title><link href="http://localhost:4000/posts/2024/10/21/" rel="alternate" type="text/html" title="[gem5 Q&amp;amp;A] Why there is miss prediction of non-control instructions" /><published>2024-10-21T00:00:00+00:00</published><updated>2024-10-21T00:00:00+00:00</updated><id>http://localhost:4000/posts/2024/10/gem5-mail</id><content type="html" xml:base="http://localhost:4000/posts/2024/10/21/"><![CDATA[<p>Hello,
+In function checkSignalsAndUpdate(ThreadID tid) in src/cpu/o3/fetch.cc file, it 
+seems miss prediction can still happen from commit and decode even if 
+mispredictInst-&gt;isControl() is false.</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Check squash signals from commit.</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">fromCommit</span><span class="o">-&gt;</span><span class="n">commitInfo</span><span class="p">[</span><span class="n">tid</span><span class="p">].</span><span class="n">squash</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">DPRINTF</span><span class="p">(</span><span class="n">Fetch</span><span class="p">,</span> <span class="s">"[tid:%i] Squashing instructions due to squash "</span>
+            <span class="s">"from commit.</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="n">tid</span><span class="p">);</span>
+    <span class="c1">// In any case, squash.</span>
+    <span class="n">squash</span><span class="p">(</span><span class="o">*</span><span class="n">fromCommit</span><span class="o">-&gt;</span><span class="n">commitInfo</span><span class="p">[</span><span class="n">tid</span><span class="p">].</span><span class="n">pc</span><span class="p">,</span>
+           <span class="n">fromCommit</span><span class="o">-&gt;</span><span class="n">commitInfo</span><span class="p">[</span><span class="n">tid</span><span class="p">].</span><span class="n">doneSeqNum</span><span class="p">,</span>
+           <span class="n">fromCommit</span><span class="o">-&gt;</span><span class="n">commitInfo</span><span class="p">[</span><span class="n">tid</span><span class="p">].</span><span class="n">squashInst</span><span class="p">,</span> <span class="n">tid</span><span class="p">);</span>
+    <span class="c1">// If it was a branch mispredict on a control instruction, update the</span>
+    <span class="c1">// branch predictor with that instruction, otherwise just kill the</span>
+    <span class="c1">// invalid state we generated in after sequence number</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">fromCommit</span><span class="o">-&gt;</span><span class="n">commitInfo</span><span class="p">[</span><span class="n">tid</span><span class="p">].</span><span class="n">mispredictInst</span> <span class="o">&amp;&amp;</span>
+        <span class="n">fromCommit</span><span class="o">-&gt;</span><span class="n">commitInfo</span><span class="p">[</span><span class="n">tid</span><span class="p">].</span><span class="n">mispredictInst</span><span class="o">-&gt;</span><span class="n">isControl</span><span class="p">())</span> <span class="p">{</span>
+        <span class="n">branchPred</span><span class="o">-&gt;</span><span class="n">squash</span><span class="p">(</span><span class="n">fromCommit</span><span class="o">-&gt;</span><span class="n">commitInfo</span><span class="p">[</span><span class="n">tid</span><span class="p">].</span><span class="n">doneSeqNum</span><span class="p">,</span>
+                <span class="o">*</span><span class="n">fromCommit</span><span class="o">-&gt;</span><span class="n">commitInfo</span><span class="p">[</span><span class="n">tid</span><span class="p">].</span><span class="n">pc</span><span class="p">,</span>
+                <span class="n">fromCommit</span><span class="o">-&gt;</span><span class="n">commitInfo</span><span class="p">[</span><span class="n">tid</span><span class="p">].</span><span class="n">branchTaken</span><span class="p">,</span> <span class="n">tid</span><span class="p">);</span>
+    <span class="p">}</span> <span class="o">**</span><span class="k">else</span> <span class="p">{</span>
+        <span class="n">branchPred</span><span class="o">-&gt;</span><span class="n">squash</span><span class="p">(</span><span class="n">fromCommit</span><span class="o">-&gt;</span><span class="n">commitInfo</span><span class="p">[</span><span class="n">tid</span><span class="p">].</span><span class="n">doneSeqNum</span><span class="p">,</span>
+                           <span class="n">tid</span><span class="p">);</span>
+    <span class="p">}</span><span class="o">**</span>
+    <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+<span class="p">}</span> 
+</code></pre></div></div>
+
+<p>Can someone please explain when would this else condition be true? How can 
+there be miss prediction of non-control instructions?</p>
+
+<h1 id="my-answer">My answer</h1>
+<p>Yes, because not all the squashes are caused by control instructions.</p>
+
+<p>Another source of squash is memory violations
+(IEW::SquanshDueToMemOrder).</p>
+
+<p>There, the squash bit toCommit-&gt;squash is set, but
+toCommit-&gt;mispredictInst is set to NULL.</p>
+
+<p>Thus, when the reason for the squash is later checked in Commit::commit() and 
+then in
+Fetch::checkSignalsAndUpdate, the if(fromIEW-&gt;mispredictInst[tid]) branch is 
+not executed.</p>
+
+<p>The branchPred-&gt;squash() function in the else-part is to delete all the branch
+predictor states that has been made after the squash instruction
+(BPredUnit::Squash).</p>
+
+<p>Hope this helps.</p>]]></content><author><name>Yuan Yao</name><email>yuan.yao@it.uu.se</email></author><category term="gem5" /><category term="mail-list Q&amp;A" /><summary type="html"><![CDATA[Hello, In function checkSignalsAndUpdate(ThreadID tid) in src/cpu/o3/fetch.cc file, it seems miss prediction can still happen from commit and decode even if mispredictInst-&gt;isControl() is false.]]></summary></entry><entry><title type="html">[gem5 Q&amp;amp;A] Page Walker: Where the PTE hits in the memory hierarchy</title><link href="http://localhost:4000/posts/2024/10/02/" rel="alternate" type="text/html" title="[gem5 Q&amp;amp;A] Page Walker: Where the PTE hits in the memory hierarchy" /><published>2024-10-02T00:00:00+00:00</published><updated>2024-10-02T00:00:00+00:00</updated><id>http://localhost:4000/posts/2024/10/gem5-mail</id><content type="html" xml:base="http://localhost:4000/posts/2024/10/02/"><![CDATA[<p>Hi, I am working on the x86 page walker in gem5. I understand that the page
+walker accesses the page walker cache (PWC) first and, in case of a miss,
+it accesses the memory hierarchy (L1, then L2, then L3 caches and lastly
+the memory). This happens through the packetpointer <em>read</em>, which reads the
+physical address of the entry at each level (PML4, PDP.. etc.).</p>
+
+<p>Now, what I would like to inquire about is how to identify where this read
+request for the PTE hits in the memory hierarchy. In other words, for each
+step, I would like to know whether this entry was a hit in L1, L2, or L3.
+So, is there any field or function/method in the packet that holds this
+information? If not, how can I get this information?</p>
+
+<p>Thanks,</p>
+
+<h1 id="my-answer">My answer</h1>
+<p>Hi,</p>
+
+<p>I have done something similar with ruby enabled. Hope this helps.</p>
+
+<p>Basically you need to set your own message flags in the pagetable walker
+and checks that flag in the SLICC code when a cacheline hits.
+Below is an example of how to do it in the L1 and L2.</p>
+
+<p>in request.hh</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">bool</span> <span class="nf">isYourType</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span><span class="k">return</span> <span class="n">_flags</span><span class="p">.</span><span class="n">isSet</span><span class="p">(</span><span class="n">your_flag</span><span class="p">);}</span>
+</code></pre></div></div>
+
+<p>in pagetable_walker.cc</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">setupWalk</span><span class="p">(</span><span class="n">Addr</span> <span class="n">vaddr</span><span class="p">){</span>
+
+    <span class="n">Request</span><span class="o">::</span><span class="n">Flags</span> <span class="n">flags</span> <span class="o">=</span> <span class="n">Request</span><span class="o">::</span><span class="n">PHYSICAL</span><span class="p">;</span>
+    <span class="n">flags</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="n">Request</span><span class="o">::</span><span class="n">your_flag</span><span class="p">);</span>
+    <span class="p">...</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>in RubyRequest.hh</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">book</span> <span class="nf">checkYourType</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="n">m_pkt</span><span class="o">-&gt;</span><span class="n">req</span><span class="o">-&gt;</span><span class="n">isYourType</span><span class="p">();}</span>
+</code></pre></div></div>
+
+<p>in PROTOCOL-L1Cache.sm</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">in_port</span><span class="p">(</span><span class="n">mandatoryQueue_in</span><span class="p">,</span> <span class="n">RubyRequest</span> <span class="p">...)</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">mandatorQueue_in</span><span class="p">.</span><span class="n">isReady</span><span class="p">(</span><span class="n">clockEdge</span><span class="p">()))</span>
+        <span class="n">peek</span><span class="p">(</span><span class="n">mandatoryQueue_in</span> <span class="p">...)</span>
+
+            <span class="k">if</span><span class="p">(</span><span class="n">is_valid</span><span class="p">(</span><span class="n">L1Dcache_entry</span><span class="p">))</span>
+                <span class="k">if</span><span class="p">(</span><span class="n">in_msg</span><span class="p">.</span><span class="n">checkYourType</span><span class="p">()</span> <span class="o">==</span> <span class="nb">true</span><span class="p">)</span>
+                    <span class="cp"># you have it in your local private cache
+</span>                <span class="k">else</span>
+                    <span class="cp"># forward the request to L2
+</span></code></pre></div></div>
+
+<p>in PROTOCOL-L2Cache.sm</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">in_port</span><span class="p">(</span><span class="n">L1RequestL2Network_in</span><span class="p">,</span> <span class="p">...)</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">L1RequestL2Network_in</span><span class="p">.</span><span class="n">isReady</span><span class="p">(</span><span class="n">clockEdge</span><span class="p">()))</span>
+        <span class="n">peek</span><span class="p">(</span><span class="n">L1RequestL2Network_in</span> <span class="p">...)</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">is_valid</span><span class="p">(</span><span class="n">cache_entry</span><span class="p">))</span>
+                <span class="k">if</span><span class="p">(</span><span class="n">in_msg</span><span class="p">.</span><span class="n">checkYourType</span><span class="p">()</span> <span class="o">==</span> <span class="nb">true</span><span class="p">)</span>
+                    <span class="cp"># you have it in your shared L2
+</span>                <span class="k">else</span>
+                    <span class="cp"># forward to where it should be
+</span>
+</code></pre></div></div>]]></content><author><name>Yuan Yao</name><email>yuan.yao@it.uu.se</email></author><category term="gem5" /><category term="mail-list Q&amp;A" /><summary type="html"><![CDATA[Hi, I am working on the x86 page walker in gem5. I understand that the page walker accesses the page walker cache (PWC) first and, in case of a miss, it accesses the memory hierarchy (L1, then L2, then L3 caches and lastly the memory). This happens through the packetpointer read, which reads the physical address of the entry at each level (PML4, PDP.. etc.).]]></summary></entry><entry><title type="html">[gem5 tech mark] Why are stores in the SQ assumed to have valid addresses?</title><link href="http://localhost:4000/posts/2024/09/17/" rel="alternate" type="text/html" title="[gem5 tech mark] Why are stores in the SQ assumed to have valid addresses?" /><published>2024-09-17T00:00:00+00:00</published><updated>2024-09-17T00:00:00+00:00</updated><id>http://localhost:4000/posts/2024/09/gem5-mail</id><content type="html" xml:base="http://localhost:4000/posts/2024/09/17/"><![CDATA[<p>Hi, I’m doing some gem5 hacking for research and have been confused over the 
+timing of when loads search the store queue (SQ) and when stores have valid 
+addresses that can be compared against. Gem5 includes an assert in the read() 
+method in the LSQ unit that the addresses of all stores before the executing 
+loads are valid, but I don’t understand how this can be guaranteed in OoO 
+execution.</p>
+
+<p>I found a github issue which explains the issue in more detail with code 
+examples, but hasn’t received any answers. I’m hoping someone here could take a 
+look and shed light on what’s going on with this part of the code.</p>
+
+<p>In my case, I’d like to be able to force executing loads to be dependent on the 
+first older store which has an unknown address, in order to simulate an OoO 
+core without memory dependence prediction. I had imagined implementing this 
+during the store forwarding search in the same way a load is made dependent on 
+a store with a partial address overlap, but again for some reason it’s assumed 
+that by the time a load is forwarding all the previous stores have known 
+addresses.</p>
+
+<p>Any info would be appreciated, thanks.</p>
+
+<p>https://github.com/orgs/gem5/discussions/650</p>
+
+<p>Solved this question for anyone interested, posted the full answer in that 
+github issue but basically it turns out stores without a valid address also 
+have an access size of 0 until they’re assigned an address at execution, and 
+there’s a guard in the SQ search loop that checks against the size being 0.</p>
+
+<h1 id="my-comments">My comments</h1>
+<p>Thanks a lot! I was troubled by this too!</p>
+
+<p>And to add a little info, here is where the _size is set. When a store
+reaches this stage, its translation has been finished.</p>
+
+<p>Thanks a lot!</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#0  gem5::o3::LSQUnit::LSQEntry::size at lsq_unit.hh:143
+#1  in gem5::o3::LSQUnit::write at src/cpu/o3/lsq_unit.cc:1615
+#2  in gem5::o3::LSQ::write at src/cpu/o3/lsq.cc:1539
+#3  in gem5::o3::LSQ::pushRequest at src/cpu/o3/lsq.cc:849
+#4  in gem5::o3::CPU::pushRequest at src/cpu/o3/cpu.hh:556
+#5  in gem5::o3::DynInst::writeMem at src/cpu/o3/dyn_inst.cc:440
+#6  in gem5::X86ISA::writeMemTiming at src/arch/x86/memhelpers.hh:195
+#7  in gem5::X86ISAInst::St::initiateAcc at
+build/X86_MESI_Two_Level/arch/x86/generated/exec-ns.cc.inc:19125
+#8  in gem5::o3::DynInst::initiateAcc at src/cpu/o3/dyn_inst.cc:374
+#9  in gem5::o3::LSQUnit::executeStore at src/cpu/o3/lsq_unit.cc:673
+#10 in gem5::o3::LSQ::executeStore at src/cpu/o3/lsq.cc:249
+#11 in gem5::o3::IEW::executeInsts at src/cpu/o3/iew.cc:1192
+#12 in gem5::o3::IEW::tick at src/cpu/o3/iew.cc:1422
+#13 in gem5::o3::CPU::tick at src/cpu/o3/cpu.cc:363
+</code></pre></div></div>]]></content><author><name>Yuan Yao</name><email>yuan.yao@it.uu.se</email></author><category term="gem5" /><category term="mail-list Q&amp;A" /><summary type="html"><![CDATA[Hi, I’m doing some gem5 hacking for research and have been confused over the timing of when loads search the store queue (SQ) and when stores have valid addresses that can be compared against. Gem5 includes an assert in the read() method in the LSQ unit that the addresses of all stores before the executing loads are valid, but I don’t understand how this can be guaranteed in OoO execution.]]></summary></entry><entry><title type="html">[gem5 Q&amp;amp;A] Fixed I/O Address Range in x86</title><link href="http://localhost:4000/posts/2024/09/10/" rel="alternate" type="text/html" title="[gem5 Q&amp;amp;A] Fixed I/O Address Range in x86" /><published>2024-09-10T00:00:00+00:00</published><updated>2024-09-10T00:00:00+00:00</updated><id>http://localhost:4000/posts/2024/09/gem5-mail</id><content type="html" xml:base="http://localhost:4000/posts/2024/09/10/"><![CDATA[<p>Hi all, I’m trying to model the SPEC HPC benchmark suite in gem5 with an x86 ISA
+using KVM. As a result, I am trying to link the “_addr” version of the
+m5ops against the binaries in order to model the region of interest.
+Unfortunately, I get the following error when trying to build the sample
+hello world example:</p>
+
+<p>File contents (test.c):</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#include &lt;gem5/m5ops.h&gt;
+#include &lt;m5_mmap.h&gt;
+
+int main(void) {
+m5op_addr = 0xffff0000;
+map_m5_mem();
+m5_exit_addr(0);
+return 0;
+}
+</code></pre></div></div>
+
+<p>Error output: ```
+$ gcc -o test test.c -I/gem5-include/ -I/m5-include/ -L/m5-out -lm5</p>
+
+<p>/usr/bin/ld: /m5-out/libm5.a(m5op_addr.o): relocation R_X86_64_32S against
+symbol `m5_mem’ can not be used when making a PIE object; recompile with
+-fPIC
+/usr/bin/ld: final link failed: Nonrepresentable section on output
+collect2: error: ld returned 1 exit status</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+The included headers from $(GEM5_DIR)/include are in the /gem5-include
+directory, the m5 utility headers (required to include &lt;m5_mmap.h&gt;) are in
+/m5-include, and the libraries and binaries are in /m5-out.
+
+I added -fPIC to the CCFLAGS and CXXFLAGS of the SConscript in util/m5, but
+this didn't change the error post compilation. I also tried adding -fno-pie
+and get the error on compilation of the m5 binary instead:
+
+</code></pre></div></div>
+<p>LINK build/x86/test/bin/call_type/addr
+/usr/bin/ld: build/x86/call_type/addr.test.to: relocation R_X86_64_32
+against symbol `interceptEnv’ can not be used when making a PIE object;
+recompile with -fPIE
+/usr/bin/ld: failed to set dynamic section sizes: bad value
+collect2: error: ld returned 1 exit status
+scons: *** [build/x86/test/bin/call_type/addr] Error 1’’)</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+The error happens if I try to build natively on my Ubuntu 20.04 host
+pointing to the files where they naturally are built in the base gem5
+directory.
+
+Any advice would be appreciated for where I may be going wrong on this!
+Thank you in advance for your help!
+
+My answer
+======
+Hi Sam,
+
+   ''scons build/x86/out/m5 --verbose'' shows
+   
+
+</code></pre></div></div>
+<p>g++ -o build/x86/out/m5 -no-pie -static build/x86/call_type/inst.o 
+build/x86/call_type/addr.o build/x86/args.o …</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   
+   So I guess in your case either
+
+</code></pre></div></div>
+<p>gcc -o test test.c -I./include -I./util/m5/src -L./util/m5/build/x86/out/ 
+-lm5 -static</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   
+   or
+   
+
+</code></pre></div></div>
+<p>gcc -o test test.c -I./include -I./util/m5/src -L./util/m5/build/x86/out/ 
+-lm5 -no-pie</p>
+
+<p>```</p>
+
+<p>should work. The first method generates a static binary, and the second a 
+dynamic one.</p>
+
+<p>PS. If you do “ar -x libm5.a” and then “readelf –relocs m5op_addr.o” you 
+will see there is no PLT info for symbol m5_mem, which gives you the linker error.</p>
+
+<p>Hope this helps.</p>]]></content><author><name>Yuan Yao</name><email>yuan.yao@it.uu.se</email></author><category term="gem5" /><category term="mail-list Q&amp;A" /><summary type="html"><![CDATA[Hi all, I’m trying to model the SPEC HPC benchmark suite in gem5 with an x86 ISA using KVM. As a result, I am trying to link the “_addr” version of the m5ops against the binaries in order to model the region of interest. Unfortunately, I get the following error when trying to build the sample hello world example:]]></summary></entry><entry><title type="html">[gem5 Q&amp;amp;A] Microcode_ROM Instruction and fetchRomMicroop() Function</title><link href="http://localhost:4000/posts/2024/01/18/" rel="alternate" type="text/html" title="[gem5 Q&amp;amp;A] Microcode_ROM Instruction and fetchRomMicroop() Function" /><published>2024-01-18T00:00:00+00:00</published><updated>2024-01-18T00:00:00+00:00</updated><id>http://localhost:4000/posts/2024/01/gem5-mail</id><content type="html" xml:base="http://localhost:4000/posts/2024/01/18/"><![CDATA[<p>Hello, I am looking at the AtomicSimpleCPU code in src/cpu/simple for x86 ISA. I am 
+trying to understand the following code snippet. Whenever this condition is 
+true for a given PC, it does NOT follow the regular fetch from the instruction 
+cache and then decode. This results in a macroop called <code class="language-plaintext highlighter-rouge">Microcode_ROM</code>, which 
+is not an x86 macroop that has a sequence of uops (can be seen in the O3 CPU). 
+Example: Instruction is:   Microcode_ROM : ldst   t0, HS:[t0 + t6 + 0x20] (This 
+is taken from the O3 logs running the same workload by checking the same PC in 
+the Debug logs).</p>
+
+<p>I am not sure what this macroop is and what the benefit is from the code below. 
+Does this mean this instruction has no x86 machine instruction binary? If it 
+has an x86 instruction binary, how to get it?</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="p">(</span><span class="n">isRomMicroPC</span><span class="p">(</span><span class="n">pc_state</span><span class="p">.</span><span class="n">microPC</span><span class="p">()))</span> <span class="p">{</span>
+    <span class="n">t_info</span><span class="p">.</span><span class="n">stayAtPC</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+    <span class="n">curStaticInst</span> <span class="o">=</span> <span class="n">decoder</span><span class="o">-&gt;</span><span class="n">fetchRomMicroop</span><span class="p">(</span>
+        <span class="n">pc_state</span><span class="p">.</span><span class="n">microPC</span><span class="p">(),</span> <span class="n">curMacroStaticInst</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Thanks,</p>
+
+<h1 id="my-answer">My answer</h1>
+<p>Hi,</p>
+
+<p>The ROM contains predefined micro-code routines for purposes such as apic 
+interrupt handler (arch/x86/isa/insts/romutil.py).</p>
+
+<p>If you are simulating a full system then basically the interrupt is 
+triggered by 8254 timer (dev/x86/i8254.py) and when it is triggered the core 
+fetches instructions from the ROM to handle interrupts.</p>
+
+<p>For example, for the timer interrupt the linux updates process cgroup times 
+for, do soft irqs, and reschedule, etc.</p>
+
+<p>Hope this helps.</p>]]></content><author><name>Yuan Yao</name><email>yuan.yao@it.uu.se</email></author><category term="gem5" /><category term="mail-list Q&amp;A" /><summary type="html"><![CDATA[Hello, I am looking at the AtomicSimpleCPU code in src/cpu/simple for x86 ISA. I am trying to understand the following code snippet. Whenever this condition is true for a given PC, it does NOT follow the regular fetch from the instruction cache and then decode. This results in a macroop called Microcode_ROM, which is not an x86 macroop that has a sequence of uops (can be seen in the O3 CPU). Example: Instruction is: Microcode_ROM : ldst t0, HS:[t0 + t6 + 0x20] (This is taken from the O3 logs running the same workload by checking the same PC in the Debug logs).]]></summary></entry><entry><title type="html">[gem5 Q&amp;amp;A] Squashing Instructions after Page Table Fault</title><link href="http://localhost:4000/posts/2023/09/29/" rel="alternate" type="text/html" title="[gem5 Q&amp;amp;A] Squashing Instructions after Page Table Fault" /><published>2023-09-29T00:00:00+00:00</published><updated>2023-09-29T00:00:00+00:00</updated><id>http://localhost:4000/posts/2023/09/gem5-mail</id><content type="html" xml:base="http://localhost:4000/posts/2023/09/29/"><![CDATA[<p>Hello, 
+I am currently trying to locate the code that is used to squash instructions if a Page Table Fault is triggered in the O3 CPU.
+After using the PageTableWalker Debug Flags, my current guess would be gem5/src/arch/x86/pagetable_walker.cc in line 199.
+Furthermore I inspected the files in the src/cpu/o3 directory, but couldn’t find anything specific to squashing instructions after a fault.</p>
+
+<p>Is my assumption correct, that the O3 CPU implementation does not handle these things on its own, but the architectural part of the implementation does it? I am missing something, feel free to point it out.</p>
+
+<p>A short addition. I also couldn’t find a specific check for the user/supervisor Page Table Attribute anywhere.
+Are there parts in the code, where specific bits are checked or does gem5 uses some other kind of implementation here?</p>
+
+<h1 id="my-answer">My answer</h1>
+<p>If I understand it correctly, a Page Table Fault instruction is not squashed 
+but <em>not executed</em>. The instruction generating a fault is marked ready to 
+commit. Then, during the commit phase, the fault generated by the instruction 
+is handled.</p>
+
+<p>To explain this in more detail let me I take an example of how Page Fault of 
+a load is handled with gem5:</p>
+
+<p>1, DefaultIEW<Impl>::executeInsts() =&gt; ldstQueue.executeLoad(Inst) =&gt; inst-&gt;InitiateAcc() (dynamic 
+inst) =&gt; staticInst-&gt;initiateAcc() (static inst) =&gt; initiateMemRead (dynamic inst again) =&gt; 
+cpu-&gt;pushRequest() =&gt; LSQ-&gt;pushRequest() =&gt; Follow this function chain, gem5 will ultimately start the 
+translation via the MMU module.</Impl></p>
+
+<p>2, Later after the translation is done, the page fault and the faulty instruction is 
+marked by <em>translation-&gt;finish(…)</em> in pagetable_walker.cc (via 
+walker:recevTimingResp, assuming that there is a page walk). The ‘finish()’ function is 
+defined in the O3 pipeline components. In this case: 
+LSQ<Impl>::SingleDataRequest::finish.</Impl></p>
+
+<p>3, Because the faulty instruction is not yet committed, 
+DefaultIEW<Impl>::executeInsts() will check the instruction again, but this time the 
+instruction is marked as 'TranslationCompleted'. However since &lt;fault != NoFault&gt;, so 
+the instruction will be marked as executed and is forward to the commit stage 
+(iewState-&gt;instToCommit(inst)).</Impl></p>
+
+<p>4, As the instruction moves to the head of ROB, the commitInst() function of the 
+commit unit will call commitHead(), which further calls cpu-&gt;trap(), then 
+fault-&gt;invoke() to handle the fault. Different faults have different invoke 
+functions. To your question, please take a look at PageFault::invoke() at 
+arch/x86/faults.cc. The CPU then setup the CR2 register etc and will read the ROM to 
+launch the procedure to transfer control to OS fault handler. (The microrom is 
+defined in romutil.py)</p>
+
+<p>5, And after the page handler is finished the fault instruction (still at 
+the head of ROB) will be re-executed.</p>
+
+<p>The above is based on gem5 21.0.0.0 but I don’t think the code changes much 
+for the above discussions.</p>
+
+<p>Hope this helps.</p>
+
+<p>PS. Page access write is checked at the translate function in tlb.cc.</p>
+
+<h1 id="following-up-question">Following up question</h1>
+<p>Hi Yuan,</p>
+
+<p>thank you very much for your detailed response. My understanding of the fault handling in gem5 is getting better and better. Using debug flags, I can trace the control flow during the execution of my code.
+I am currently inspecting tlb.cc in further detail, but I am still searching for the exact check for my problem.
+To further specify my question:</p>
+
+<p>During the attempt to access kernel memory, the “user/supervisor” (U/S) pagetable attribute is used to check whether this page table belongs to kernel memory or not. If I want to access the memory, it should raise the page table fault. I am looking for this specific check. My goal is, to experiment with gem5 and to customize it. Currently, the instruction is not executed when raising a Page Table Fault. In a first step, I want to change the check in order to execute the instruction although it wants to access kernel memory. So I explicitly search for this check inside this command chain during the Page Fault handling.</p>
+
+<h1 id="answer-2">Answer 2</h1>
+<p>Assuming we’re talking about the x86 architecture, line 471 in tlb.cc is where
+the check in question happens:</p>
+
+<p>https://github.com/gem5/gem5/blob/48a40cf2f5182a82de360b7efa497d82e06b1631/src/arch/x86/tlb.cc#L471</p>
+
+<p>Note that the raw bits of the PTE have been abstracted out in the gem5 TLB
+entry data structure, hence properties such as entry-&gt;user.</p>
+
+<h1 id="following-up-2">Following up 2</h1>
+<p>thank you for your help. I experimented with the checks and I was a bit suprised, that the Page Fault seems not to be raised after a unsuccessful user/supervisor check. After enabling the necessary debug flags and including more Debug statements into the code, I observed that the Page Fault is not raised after entering the If-statement, but before it. Here is a short snippet of my outputs:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>14442496349500: system.repeat_switch_cpus5.mmu.dtb: inUser = 1 | entry_user = 1 | badWrite = 0            (Line 470)
+14442496349500: system.repeat_switch_cpus5.mmu.dtb: Checks done!                                                      (Line 485)
+14442496350000: system.repeat_switch_cpus5.mmu.dtb: inUser = 1 | entry_user = 1 | badWrite = 0
+14442496350000: system.repeat_switch_cpus5.mmu.dtb: Checks done!
+14442496361000: Page-Fault: RIP 0x402da9: vector 14: #PF(0x4) at 0xffff880019688110
+14442496387000: system.repeat_switch_cpus5.mmu.itb: inUser = 1 | entry_user = 0 | badWrite = 1
+14442496387000: system.repeat_switch_cpus5.mmu.itb: ***************************** If [Line 471]. *****************************************
+14442496424000: system.repeat_switch_cpus5.mmu.dtb: inUser = 0 | entry_user = 0 | badWrite = 1
+14442496424000: system.repeat_switch_cpus5.mmu.dtb: Checks done!
+14442496464000: system.repeat_switch_cpus5.mmu.dtb: inUser = 0 | entry_user = 0 | badWrite = 1
+14442496464000: system.repeat_switch_cpus5.mmu.dtb: Checks done!
+</code></pre></div></div>
+
+<p>I expected, that the Page Fault is raised at line 476, but it doesn’t seem so.</p>
+
+<p>For further context, my goal is to get this code (https://github.com/IAIK/meltdown/blob/master/reliability.c) working in gem5. Currently, “libkdump_read” (https://github.com/IAIK/meltdown/blob/master/libkdump/libkdump.c#L528) only returns 0 in gem5.</p>
+
+<p>My guess is, that I need to change much more than initially thought. With reference to the answer of Yuan, I guess that I also need to change stuff in the function chain for handling a fault. Can anyone confirm this?</p>
+
+<h1 id="answer-3">Answer 3</h1>
+<p>The “Page-Fault” message is printed out on the constructor of a fault, so 
+gdb that line and move up frames can help.</p>
+
+<p>By the way, a page fault can also be generated during page walks (see 
+here<a href="https://github.com/gem5/gem5/blob/48a40cf2f5182a82de360b7efa497d82e06b1631/src/arch/x86/pagetable_walker.cc#L491C22-L491C22">https://github.com/gem5/gem5/blob/48a40cf2f5182a82de360b7efa497d82e06b1631/src/arch/x86/pagetable_walker.cc#L491C22-L491C22</a>).
+ The faulty PTE is not inserted into TLB. Debug flag PageTableWalker tracks all these 
+errands.</p>
+
+<h1 id="following-up-3">Following up 3</h1>
+<p>I have used more debug flags, which increased the execution time by a lot, but I got some new information out of it:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Addresses : var = 39b765b0, start = 198325b0, phys = 198325b0 (output in meltdown "reliability.c" code, after line 39)
+ 
+O3CPU: Ticking main, O3CPU.
+15059411234500: system.repeat_switch_cpus1.mmu.dtb: Translating vaddr 0x7ffe39b765b0.
+15059411234500: system.repeat_switch_cpus1.mmu.dtb: In protected mode.
+15059411234500: system.repeat_switch_cpus1.mmu.dtb: Paging enabled.
+15059411234500: system.repeat_switch_cpus1.mmu.dtb: pageAlignedVaddr for lookup: 0x7ffe39b76000
+15059411234500: system.repeat_switch_cpus1.mmu.dtb: Handling a TLB miss for address 0x7ffe39b765b0 at pc 0x401b34.                    &lt;--- First a TLB miss
+15059411234500: system.repeat_switch_cpus1: Scheduling next tick!
+[...]
+O3CPU: Ticking main, O3CPU.
+15059411262000: system.repeat_switch_cpus1: Scheduling next tick!
+15059411262500: system.repeat_switch_cpus1.mmu.dtb.walker: Got long mode PTE entry 0x00000019832067.
+15059411262500: system.repeat_switch_cpus1.mmu.dtb: Translating vaddr 0x7ffe39b765b0.
+15059411262500: system.repeat_switch_cpus1.mmu.dtb: In protected mode.
+15059411262500: system.repeat_switch_cpus1.mmu.dtb: Paging enabled.
+15059411262500: system.repeat_switch_cpus1.mmu.dtb: pageAlignedVaddr for lookup: 0x7ffe39b76000
+15059411262500: system.repeat_switch_cpus1.mmu.dtb: Entry found with paddr 0x19832000, doing protection checks.
+15059411262500: system.repeat_switch_cpus1.mmu.dtb: inUser = 1 | entry_user = 1 | badWrite = 0
+15059411262500: system.repeat_switch_cpus1.mmu.dtb: Translated 0x7ffe39b765b0 -&gt; 0x198325b0.                                                 &lt;--- Translated virt to phys
+[...]
+O3CPU: Ticking main, O3CPU.
+15059514670500: system.repeat_switch_cpus1.mmu.dtb: Translating vaddr 0xffff8800198325b0.
+15059514670500: system.repeat_switch_cpus1.mmu.dtb: In protected mode.
+15059514670500: system.repeat_switch_cpus1.mmu.dtb: Paging enabled.
+15059514670500: system.repeat_switch_cpus1.mmu.dtb: pageAlignedVaddr for lookup: 0xffff880019832000
+15059514670500: system.repeat_switch_cpus1.mmu.dtb: Handling a TLB miss for address 0xffff8800198325b0 at pc 0x402e09.
+15059514670500: system.repeat_switch_cpus1: Removing committed instruction [tid:0] PC (0x402e09=&gt;0x402e10).(1=&gt;2) [sn:251369]
+15059514670500: system.repeat_switch_cpus1: Removing committed instruction [tid:0] PC (0x402e10=&gt;0x402e13).(0=&gt;1) [sn:251370]
+15059514670500: system.repeat_switch_cpus1: Removing committed instruction [tid:0] PC (0x402e13=&gt;0x402e15).(0=&gt;1) [sn:251371]
+15059514670500: system.repeat_switch_cpus1: Removing committed instruction [tid:0] PC (0x402e15=&gt;0x402e17).(0=&gt;1) [sn:251372]
+15059514670500: system.repeat_switch_cpus1: Removing committed instruction [tid:0] PC (0x402e15=&gt;0x402e17).(1=&gt;2) [sn:251373]
+15059514670500: system.repeat_switch_cpus1: Removing committed instruction [tid:0] PC (0x402e15=&gt;0x402e17).(2=&gt;3) [sn:251374]
+15059514670500: system.repeat_switch_cpus1: Removing committed instruction [tid:0] PC (0x402e17=&gt;0x402e1e).(0=&gt;1) [sn:251375]
+15059514670500: system.repeat_switch_cpus1: Removing instruction, [tid:0] [sn:251369] PC (0x402e09=&gt;0x402e10).(1=&gt;2)
+15059514670500: system.repeat_switch_cpus1: Removing instruction, [tid:0] [sn:251370] PC (0x402e10=&gt;0x402e13).(0=&gt;1)
+15059514670500: system.repeat_switch_cpus1: Removing instruction, [tid:0] [sn:251371] PC (0x402e13=&gt;0x402e15).(0=&gt;1)
+15059514670500: system.repeat_switch_cpus1: Removing instruction, [tid:0] [sn:251372] PC (0x402e15=&gt;0x402e17).(0=&gt;1)
+15059514670500: system.repeat_switch_cpus1: Removing instruction, [tid:0] [sn:251373] PC (0x402e15=&gt;0x402e17).(1=&gt;2)
+15059514670500: system.repeat_switch_cpus1: Removing instruction, [tid:0] [sn:251374] PC (0x402e15=&gt;0x402e17).(2=&gt;3)
+15059514670500: system.repeat_switch_cpus1: Removing instruction, [tid:0] [sn:251375] PC (0x402e17=&gt;0x402e1e).(0=&gt;1)
+15059514670500: system.repeat_switch_cpus1: Scheduling next tick!
+[...]
+O3CPU: Ticking main, O3CPU.
+15059514683000: system.repeat_switch_cpus1: Scheduling next tick!
+15059514683500: system.repeat_switch_cpus1.mmu.dtb.walker: Got long mode PML4 entry 0x00000000000000.
+15059514683500: system.repeat_switch_cpus1.mmu.dtb.walker: Raising page fault.
+[...]
+O3CPU: Ticking main, O3CPU.
+15059514688500: Page-Fault: RIP 0x402e1e: vector 14: #PF(0x4) at 0xffff8800198325b0
+15059514688500: system.repeat_switch_cpus1: Scheduling next tick!
+</code></pre></div></div>
+
+<p>This is a snippet of the debugging output.</p>
+
+<p>For more context: https://github.com/IAIK/meltdown/blob/master/reliability.c  (kaslr disabled in gem5 full-system simulation kernel command line)</p>
+<ul>
+  <li>First, the address is translated from virt to phys without a problem (line 30)</li>
+  <li>Next, the code wants to access the translated kernel address (line 49). Here seems to be the problem. It gets a TLB miss for the address, but after that the PageTableWalker gets the PML4 entry 0x00000000000000 and raises a Page fault.</li>
+  <li>My expectation (and goal) is, that during the read of the kernel address, the Page Table Walk is successfull until the Page Table Entry.</li>
+</ul>
+
+<p>Now I have a few questions:</p>
+
+<ol>
+  <li>After the TLB miss at tick 15059514670500, the CPU removes many commited instructions at the PC the miss occured. Why are these instructions commited, although the Page Fault is being raised?</li>
+  <li>Does anyone have an idea, why the Page Fault already occurs at the PML4 entry level? And why this entry is only 0x0?</li>
+</ol>
+
+<h1 id="answer-4">Answer 4</h1>
+<p>You observed that the check on line 471 in tlb.cc did not seem to be the one
+causing the fault in the case you were looking at.  It occurs to me that the
+line 471 check is for a <em>resident</em> page.  If the page is <em>not</em> resident, some
+other check would apply, and the fault might be raised when the OS examines
+the PTE to determine what to do with a disallowed access to a non-resident
+page.</p>
+
+<p>Could that be the scenario you were looking at?  That would indeed seem to be
+more involved, though at the point gem5 does the interrupt for a non-resident
+page (one not in the TLB) you might be able to more directly do a check of the
+PTE.  To do that you would need to emulate walking the page tables (hoping
+that all the relevant page table pages are themselves resident).</p>
+
+<p>Yes, possibly a bit of a mess …</p>]]></content><author><name>Yuan Yao</name><email>yuan.yao@it.uu.se</email></author><category term="gem5" /><category term="mail-list Q&amp;A" /><summary type="html"><![CDATA[Hello, I am currently trying to locate the code that is used to squash instructions if a Page Table Fault is triggered in the O3 CPU. After using the PageTableWalker Debug Flags, my current guess would be gem5/src/arch/x86/pagetable_walker.cc in line 199. Furthermore I inspected the files in the src/cpu/o3 directory, but couldn’t find anything specific to squashing instructions after a fault. Is my assumption correct, that the O3 CPU implementation does not handle these things on its own, but the architectural part of the implementation does it? I am missing something, feel free to point it out.]]></summary></entry></feed>
