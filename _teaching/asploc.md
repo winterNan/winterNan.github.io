@@ -1,4 +1,4 @@
-[<35;14;14M---
+---
 title: "Accelerating Systems with Programmable Logic Components"
 collection: teaching
 type: "Graduate course"
@@ -9,7 +9,7 @@ location: "Uppsala, Sweden"
 ---
 
 **TL;DR** Join us to gain **hands-on experience in FPGA acceleration**, **neural network optimization**, and **hardware-software co-design**, while mastering the **Xilinx Zynq-7000 FPGA system**! 🚀  
-*I have been the course responsible since 2020.*
+*I have been the course responsible since 2020.*  
 [Course's webpage at Uppsala University](https://www.uu.se/utbildning/kurs?query=1DT109)
 
 Course description
