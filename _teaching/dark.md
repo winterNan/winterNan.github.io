@@ -8,7 +8,7 @@ date: 2024-01-01
 location: "Uppsala, Sweden"
 ---
 
-**TL;DR** Introduction to Computer Architecture using MIPS ISA and introduces ideas/thoughts behind the micro-architecture that behind it
+**TL;DR** Introduction to Computer Architecture using MIPS ISA and introduces ideas/thoughts behind the micro-architecture that implements the ISA.  
 *I have been the course responsible since 2021*  
 [Course's webpage at Uppsala University](https://www.uu.se/utbildning/kurs?query=1DT038)
 
