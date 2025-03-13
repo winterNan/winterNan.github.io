@@ -9,6 +9,8 @@ redirect_from:
 
 Hi! My name is Yuan Yao, or 姚<sup>[<a href="https://en.wikipedia.org/wiki/Yao_(surname)">1</a>]</sup>远<sup>[<a href="https://chinese.yabla.com/chinese-english-pinyin-dictionary.php?define=%E8%BF%9C">2</a>]</sup> in Chinese.
 
+[My UU page is here.](https://www.uu.se/en/contact-and-organisation/staff?query=N19-1721)
+
 ## Professional Background
 I am currently an **Assistant Professor** at the **Uppsala Computer Architecture Research Team (UART), Uppsala University, Sweden**.
 
