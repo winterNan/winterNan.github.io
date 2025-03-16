@@ -22,7 +22,7 @@ repository               : "winterNan/winterNan.github.io"
 #               Additional customization can be done by editing /_includes/author-profile.html
 author:
   # Biographic information
-  avatar           : "yuan_yao.jpeg"
+  avatar           : "bio-photo.jpg"
   name             : "Yuan Yao"
   pronouns         : # example: "she/her"  
   bio              : "Assistant Professor <br> Computer Science <br> Research group UART <br> Uppsala University, Sweden"
