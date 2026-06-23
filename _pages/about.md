@@ -12,16 +12,19 @@ Hi! My name is Yuan Yao, or 姚<sup>[<a href="https://en.wikipedia.org/wiki/Yao_
 [My UU page is here.](https://www.uu.se/en/contact-and-organisation/staff?query=N19-1721)
 
 ## Professional Background
-I am currently an **Assistant Professor** at the **Uppsala Computer Architecture Research Team (UART), Uppsala University, Sweden**.
+I am currently an **Assistant Professor** at the **Uppsala Computer Architecture Research Team (UART), Uppsala University, Sweden**, where I obtained my **Docent** (Habilitation) in Computer Science in 2026.
+
+I lead an independent research line on **chiplet-based architecture and physical-layer-aware modeling**, supported by a sole-PI **Swedish Research Council (VR) Starting Grant**.
 
 I was a Postdoc researcher at Uppsala University 2019-2020. Before joining Uppsala University, I earned my **PhD in Electronic and Computer Systems (2019)** and an **M.S. in System-on-Chip Design (2014)**, both from **KTH Royal Institute of Technology, Sweden**.
 
 ## Research Interests
 My research focuses on:
-- **Network-on-Chip (NoC) design**
-- **Heterogeneous architectures**
+- **Chiplet-based architecture and physical-layer (PHY) modeling**
+- **Cache coherence and synchronization**
+- **Trustworthy architecture simulation (gem5)**
+- **Network-on-Chip (NoC) design and heterogeneous architectures**
 - **Energy-efficient accelerators for emerging workloads (AI and big graphs)**
-- **Energy-efficient multi-core**
 
 ## Open Source & Personal Projects
 Beyond academia, I have my hobbies in **open-source projects**, particularly in:
