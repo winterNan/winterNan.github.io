@@ -3,9 +3,10 @@ title: "NoCWalk: In-Network Page Walks for Concurrent Data Structure Workloads o
 collection: publications
 category: conferences
 permalink: /publication/2026-nocwalk
-excerpt: '<b>First-author work.</b> <b>[To appear]</b>'
+excerpt: 'Virtual memory; page-table walks; networks-on-chip; concurrent data structures <br><b>[To appear]</b>'
 date: 2026-05-01
 venue: '2026 ACM International Conference on Computing Frontiers (CF)'
+venue_shortname: 'CF'
 slidesurl: ''
 paperurl: ''
 citation: '<b>Y. Yao</b>, S. Li, R. Aligholipour and S. Kaxiras, "NoCWalk: In-Network Page Walks for Concurrent Data Structure Workloads on Multicore," 2026 ACM International Conference on Computing Frontiers (CF), Catania, Italy, 2026.'

@@ -3,9 +3,10 @@ title: "TangramFP: Energy-Efficient, Bit-Parallel, Multiply-Accumulate for Deep 
 collection: publications
 category: conferences
 permalink: /publication/2024-tangramfp
-excerpt: 'Bit-Parallel, Energy-Efficient Multiply Accumulate, Deep Neural Networks <br><b>Best paper candidate</b>'
+excerpt: 'Bit-Parallel, Energy-Efficient Multiply Accumulate, Deep Neural Networks <br><b>Best computer architecture track paper</b>'
 date: 2024-11-27
 venue: '2024 IEEE 36th International Symposium on Computer Architecture and High Performance Computing (SBAC-PAD)'
+venue_shortname: 'SBAC-PAD'
 slidesurl: 'https://ieeexplore.ieee.org/document/10763567'
 paperurl: 'https://ieeexplore.ieee.org/document/10763567'
 citation: '<b>Y. Yao</b>, X. Chen, H. Atmer and S. Kaxiras, "TangramFP: Energy-Efficient, Bit-Parallel, Multiply-Accumulate for Deep Neural Networks," 2024 IEEE 36th International Symposium on Computer Architecture and High Performance Computing (SBAC-PAD), Hilo, HI, USA, 2024, pp. 1-12, doi: 10.1109/SBAC-PAD63648.2024.00009.'

@@ -15,7 +15,13 @@ layout: default
 <div id="main" role="main">
   {% include sidebar.html %}
 
-  <div class="archive">
+  <div class="archive{% if page.cv_print %} archive--cv{% endif %}">
+    {% if page.cv_print %}
+      <header class="cv-print-header">
+        <h1>{{ site.author.name }}</h1>
+        <p>Assistant Professor, Computer Architecture · Uppsala University · {{ site.author.email }}</p>
+      </header>
+    {% endif %}
     {% unless page.header.overlay_color or page.header.overlay_image %}
       <h1 class="page__title">{{ page.title }}</h1>
     {% endunless %}

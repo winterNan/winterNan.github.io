@@ -6,9 +6,9 @@ permalink: /teaching/dark
 venue: "Uppsala University, Department of IT"
 date: 2024-01-01
 location: "Uppsala, Sweden"
+compact_bullets: true
 ---
 
-**TL;DR** Introduction to Computer Architecture using MIPS ISA and introduces ideas/thoughts behind the micro-architecture that implements the ISA.  
 *I have been the course responsible since 2021*  
 [Course's webpage at Uppsala University](https://www.uu.se/utbildning/kurs?query=1DT038)
 
@@ -20,13 +20,13 @@ This course provides an introduction to the fundamental principles of computer a
 ## Course Content  
 The course covers the following key topics:  
 
-- **Understanding the MIPS Instruction Set Architecture (ISA)**  
+- Understanding the MIPS Instruction Set Architecture (ISA)  
   - Assembly instructions and how they map to hardware execution  
-- **Logic-level components**  
+- Logic-level components  
   - Logic design, processor datapath, and control logic  
-- **Instruction-level components**  
+- Instruction-level components  
   - Pipelining, hazards, branch prediction, caches, and parallelism  
-- **System-level components**  
+- System-level components  
   - Virtual memory, input/output mechanisms  
 
 ## Learning Objectives  
@@ -38,7 +38,7 @@ By the end of this course, students will be able to:
 - Write and debug assembly language programs.  
 
 ## Teaching Methodology: Flipped Classroom  
-This course adopts a **flipped classroom** approach:  
+This course adopts a flipped classroom approach:  
 
 - Students watch video lectures at home to learn theoretical concepts.  
 - Classroom sessions focus on problem-solving exercises, discussions, and hands-on activities.  

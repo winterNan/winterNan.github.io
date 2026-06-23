@@ -3,9 +3,10 @@ title: "TSOPER: Efficient Coherence-Based Strict Persistency"
 collection: publications
 category: conferences
 permalink: /publication/2021-tsoper
-excerpt: 'Protocols;Program processors;Nonvolatile memory;Computational modeling;Semantics;Coherence;Computer architecture;non-volatile memory;persistent memory;persistency;total store order;coherence <br><b>Top conference publication-HPCA</b> <br><b>I am co-first author</b>'
+excerpt: 'Protocols;Program processors;Nonvolatile memory;Computational modeling;Semantics;Coherence;Computer architecture;non-volatile memory;persistent memory;persistency;total store order;coherence <br><b>I am co-first author</b>'
 date: 2021-02-27
 venue: '2021 IEEE International Symposium on High-Performance Computer Architecture (HPCA)'
+venue_shortname: 'HPCA'
 slidesurl: 'https://ieeexplore.ieee.org/document/9407141'
 paperurl: 'https://ieeexplore.ieee.org/document/9407141'
 citation: 'P. Ekemark, <b>Y. Yao</b>, A. Ros, K. Sagonas and S. Kaxiras, "TSOPER: Efficient Coherence-Based Strict Persistency," 2021 IEEE International Symposium on High-Performance Computer Architecture (HPCA), Seoul, Korea (South), 2021, pp. 125-138, doi: 10.1109/HPCA51647.2021.00021.'

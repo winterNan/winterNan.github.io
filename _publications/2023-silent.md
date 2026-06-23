@@ -6,6 +6,8 @@ permalink: /publication/2023-silent
 excerpt: 'sensor network;store buffer;silent store;low power devices'
 date: 2023-12-15
 venue: 'Proceedings of the 2023 International Conference on Embedded Wireless Systems and Networks (EWSN)'
+venue_shortname: 'EWSN'
+authors: 'Weining Song, Stefanos Kaxiras, Luca Mottola, Thiemo Voigt, and <b>Yuan Yao</b>'
 slidesurl: 'https://dl.acm.org/doi/10.5555/3639940.3639945'
 paperurl: 'https://dl.acm.org/doi/10.5555/3639940.3639945'
 citation: 'Weining Song, Stefanos Kaxiras, Luca Mottola, Thiemo Voigt, and Yuan Yao, ''''Silent Stores in the Battery-less Internet of Things: A Good Idea?'''' in Proceedings of the 2023 International Conference on embedded Wireless Systems and Networks (EWSN), Association for Computing Machinery, New York, NY, USA, 40-45.'

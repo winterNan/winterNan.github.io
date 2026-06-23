@@ -6,6 +6,7 @@ permalink: /publication/2023-game-of-life
 excerpt: 'Dynamic voltage scaling, multiprocessor interconnection, automata.'
 date: 2023-02-13
 venue: 'IEEE Journal on Emerging and Selected Topics in Circuits and Systems (JETCAS, Volume: 13, Issue: 1, March 2023)'
+venue_shortname: 'JETCAS'
 slidesurl: 'https://ieeexplore.ieee.org/document/10043707'
 paperurl: 'https://ieeexplore.ieee.org/document/10043707'
 citation: '<b>Y. Yao</b>, "Game-of-Life Temperature-Aware DVFS Strategy for Tile-Based Chip Many-Core Processors," in IEEE Journal on Emerging and Selected Topics in Circuits and Systems, vol. 13, no. 1, pp. 58-72, March 2023, doi: 10.1109/JETCAS.2023.3244763'

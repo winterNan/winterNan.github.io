@@ -6,6 +6,7 @@ permalink: /publication/2023-se-cnn
 excerpt: 'Artificial intelligence, artificial neural networks, AI accelerators.'
 date: 2023-02-13
 venue: 'IEEE Journal on Emerging and Selected Topics in Circuits and Systems (JETCAS, Volume: 13, Issue: 1, March 2023)'
+venue_shortname: 'JETCAS'
 slidesurl: 'https://ieeexplore.ieee.org/document/10043725'
 paperurl: 'https://ieeexplore.ieee.org/document/10043725'
 citation: '<b>Y. Yao</b>, "SE-CNN: Convolution Neural Network Acceleration via Symbolic Value Prediction," in IEEE Journal on Emerging and Selected Topics in Circuits and Systems, vol. 13, no. 1, pp. 73-85, March 2023, doi: 10.1109/JETCAS.2023.3244767.'

@@ -3,9 +3,10 @@ title: "DVFS for NoCs in CMPs: A Thread Voting Approach"
 collection: publications
 category: conferences
 permalink: /publication/2016-thread-voting
-excerpt: 'DVFS, Multi-core <br><b>Top conference publication-HPCA</b>'
+excerpt: 'DVFS, Multi-core'
 date: 2016-03-12
 venue: '2016 IEEE International Symposium on High Performance Computer Architecture (HPCA)'
+venue_shortname: 'HPCA'
 slidesurl: 'https://ieeexplore.ieee.org/document/7446074'
 paperurl: 'https://ieeexplore.ieee.org/document/7446074'
 citation: '<b>Y. Yao</b> and Z. Lu, "DVFS for NoCs in CMPs: A thread voting approach," 2016 IEEE International Symposium on High Performance Computer Architecture (HPCA), Barcelona, Spain, 2016, pp. 309-320, doi: 10.1109/HPCA.2016.7446074.'

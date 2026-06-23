@@ -6,6 +6,7 @@ permalink: /publication/2017-tvlsi
 excerpt: 'Delays;System performance;IP networks;Nickel;Regulators;Calculus;Network-on-chip;Chip multi/many-core processor (CMP);fuzzy control;multi/many-processor systems-on-chip (MPSoC);network-on-chip (NoC);traffic engineering'
 date: 2017-02-01
 venue: 'IEEE Transactions on Very Large Scale Integration (VLSI) Systems (Volume: 25, Issue: 2, February 2017) '
+venue_shortname: 'VLSI'
 slidesurl: 'https://ieeexplore.ieee.org/document/7522073'
 paperurl: 'https://ieeexplore.ieee.org/document/7522073'
 citation: 'Z. Lu and <b>Y. Yao</b>, "Dynamic Traffic Regulation in NoC-Based Systems," in IEEE Transactions on Very Large Scale Integration (VLSI) Systems, vol. 25, no. 2, pp. 556-569, Feb. 2017, doi: 10.1109/'
