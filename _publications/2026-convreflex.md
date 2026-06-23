@@ -3,11 +3,11 @@ title: "ConvReflex: Efficient Ultra-Low-Power CNN Inference via Clamping Predict
 collection: publications
 category: conferences
 permalink: /publication/2026-convreflex
-excerpt: '<b>Top conference in embedded/sensing systems.</b> <b>[To appear]</b>'
+excerpt: '<b>Top conference in embedded/sensing systems.</b>'
 date: 2026-05-01
 venue: 'ACM/IEEE International Conference on Embedded Artificial Intelligence and Sensing Systems (SenSys)'
 slidesurl: ''
-paperurl: ''
+paperurl: 'https://dl.acm.org/doi/10.1145/3774906.3802781'
 citation: 'S. Li, L. Mottola, <b>Y. Yao</b> and S. Kaxiras, "ConvReflex: Efficient Ultra-Low-Power CNN Inference via Clamping Prediction," ACM/IEEE International Conference on Embedded Artificial Intelligence and Sensing Systems (SenSys), Saint-Malo, France, 2026.'
 ---
 

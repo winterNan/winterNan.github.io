@@ -40,3 +40,15 @@
     "vendor/font-awesome/brands",
     "vendor/magnific-popup/magnific-popup"
 ;
+
+.artifact-badges {
+  margin: 0 0 0.5em;
+
+  img {
+    width: auto;
+    max-width: none;
+    height: 64px;
+    margin: 0 0.1em;
+    border-radius: 0;
+  }
+}

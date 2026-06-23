@@ -8,14 +8,17 @@ main:
   - title: "Publications"
     url: /publications/
 
+  - title: "arXiv"
+    url: /arxiv/
+
+  - title: "Talks"
+    url: /talks/
+
   - title: "Teaching"
     url: /teaching/
 
   - title: "Tools"
     url: /tools/        
-
-  # - title: "Talks"
-  #   url: /talks/     
 
   # - title: "Portfolio"
   #   url: /portfolio/

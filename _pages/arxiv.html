@@ -1,0 +1,14 @@
+---
+layout: archive
+title: "arXiv Preprints"
+permalink: /arxiv/
+author_profile: true
+---
+
+{% include base_path %}
+
+{% for post in site.publications reversed %}
+  {% if post.category == 'arxiv' %}
+    {% include archive-single.html %}
+  {% endif %}
+{% endfor %}
