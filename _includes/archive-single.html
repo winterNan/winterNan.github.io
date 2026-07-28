@@ -62,7 +62,14 @@
     {% elsif post.excerpt and site.read_more == 'enabled' %}
     <p class="archive__item-excerpt" itemprop="description"><p>{{ post.excerpt | markdownify | remove: '<p>' | remove: '</p>' }}<strong><a href="{{ base_path }}{{ post.url }}" rel="permalink"> Read more</a></strong></p></p>
     {% endif %}
-    {% if post.paperurl and post.paperurl != empty %}
+    {% if post.bodylinks %}
+      <p class="archive__item-links">
+        Links:
+        {% for item in post.bodylinks %}
+          <a href="{{ item.url }}">{{ item.label }}</a>{% unless forloop.last %}, {% endunless %}
+        {% endfor %}
+      </p>
+    {% elsif post.paperurl and post.paperurl != empty %}
       <p class="archive__item-links"><a href="{{ post.paperurl }}">Paper</a></p>
     {% endif %}
 

@@ -131,6 +131,10 @@
 <lastmod>2026-06-01T00:00:00+00:00</lastmod>
 </url>
 <url>
+<loc>http://localhost:4000/publication/2026-dice-arxiv</loc>
+<lastmod>2026-07-28T00:00:00+00:00</lastmod>
+</url>
+<url>
 <loc>http://localhost:4000/talks/2025-06-21-anatomy-gem5</loc>
 <lastmod>2025-06-21T00:00:00+00:00</lastmod>
 </url>
@@ -169,6 +173,10 @@
 <url>
 <loc>http://localhost:4000/tools/2024-tangramfp</loc>
 <lastmod>2024-08-01T00:00:00+00:00</lastmod>
+</url>
+<url>
+<loc>http://localhost:4000/tools/2026-dice-simulator</loc>
+<lastmod>2026-07-28T00:00:00+00:00</lastmod>
 </url>
 <url>
 <loc>http://localhost:4000/</loc>

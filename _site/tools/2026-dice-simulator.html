@@ -19,7 +19,7 @@
 
 
 
-<title>Statically-linked PARSEC-3.0 benchmarks - Yuan Yao’s Pages</title>
+<title>DICE Simulator - Yuan Yao’s Pages</title>
 
 
 
@@ -29,15 +29,15 @@
 
 <meta property="og:locale" content="en-US">
 <meta property="og:site_name" content="Yuan Yao's Pages">
-<meta property="og:title" content="Statically-linked PARSEC-3.0 benchmarks">
+<meta property="og:title" content="DICE Simulator">
 
 
-  <link rel="canonical" href="http://localhost:4000/tools/2012-static-parsec">
-  <meta property="og:url" content="http://localhost:4000/tools/2012-static-parsec">
+  <link rel="canonical" href="http://localhost:4000/tools/2026-dice-simulator">
+  <meta property="og:url" content="http://localhost:4000/tools/2026-dice-simulator">
 
 
 
-  <meta property="og:description" name="description" content="In this project I modified PARSEC-3.0 benchmarks using static linking with gem5 hooks for the x86_64 architecture.">
+  <meta property="og:description" name="description" content="DICE is an open architecture-level simulation framework for detailed inter-chiplet end-to-end PHY-link modeling.">
 
 
 
@@ -52,7 +52,7 @@
 
 
   <meta property="og:type" content="article">
-  <meta property="article:published_time" content="2020-08-01T00:00:00+00:00">
+  <meta property="article:published_time" content="2026-07-28T00:00:00+00:00">
 
 
 
@@ -260,19 +260,19 @@
 
 
   <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
-    <meta itemprop="headline" content="Statically-linked PARSEC-3.0 benchmarks">
-    <meta itemprop="description" content="In this project I modified PARSEC-3.0 benchmarks using static linking with gem5 hooks for the x86_64 architecture.">
-    <meta itemprop="datePublished" content="August 01, 2020">
+    <meta itemprop="headline" content="DICE Simulator">
+    <meta itemprop="description" content="DICE is an open architecture-level simulation framework for detailed inter-chiplet end-to-end PHY-link modeling.">
+    <meta itemprop="datePublished" content="July 28, 2026">
     
 
     <div class="page__inner-wrap">
       
         <header>
-          <h1 class="page__title" itemprop="headline">Statically-linked PARSEC-3.0 benchmarks
+          <h1 class="page__title" itemprop="headline">DICE Simulator
 </h1>
           
         
-          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i>Date:</strong> <time datetime="2020-08-01T00:00:00+00:00">August 01, 2020</time></p>
+          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i>Date:</strong> <time datetime="2026-07-28T00:00:00+00:00">July 28, 2026</time></p>
         
         
 
@@ -280,64 +280,33 @@
       
 
       <section class="page__content" itemprop="text">
-        <p>In this project I modified PARSEC-3.0 benchmarks using static linking with gem5 hooks for the x86_64 architecture.</p>
+        <p>DICE is an open architecture-level simulation framework for detailed inter-chiplet end-to-end PHY-link modeling.</p>
 
-<p><a href="https://github.com/winterNan/gem5-parsec">Github link for the project</a></p>
+<p><strong>Code repository for the paper</strong><br />
+<strong><a href="https://arxiv.org/abs/2607.24221">DICE: Detailed Inter-Chiplet End-to-End PHY Modeling for Accurate Chiplet Simulation</a></strong><br />
+To appear in <strong>ACM/IEEE International Symposium on Computer Architecture (ISCA), 2026</strong>.</p>
 
-<p>The <a href="http://parsec.cs.princeton.edu">PARSEC</a> (Princeton Application Repository for Shared-Memory Computers) benchmark suite, developed by Princeton University, is a comprehensive collection of over 13 parallel applications representing a variety of emerging workloads. These applications are multithreaded using one or more of the following programming models: <strong>Pthreads, OpenMP, and Intel TBB</strong>.<br />
-To see which applications support which programming models, refer to the overview table on PARSEC’s <a href="http://wiki.cs.princeton.edu/index.php/PARSEC">Wiki page</a>.</p>
-
-<hr />
-
-<h2 id="project-overview"><strong>Project Overview</strong></h2>
-
-<p>In this project, I have <strong>ported the PARSEC-3.0 workloads to static linking</strong> for execution in <strong>gem5</strong>.</p>
-
-<h3 id="why-static-linking"><strong>Why Static Linking?</strong></h3>
-
-<p>Static linking allows all the necessary libraries to be included in the binary. This approach preserves call stack information in the <code class="language-plaintext highlighter-rouge">.eh_frame</code> section, which is critical for backtracing the application call stack in gem5.<br />
-Without static linking, backtracing becomes challenging, especially in a <strong>full-system simulation environment</strong>, where memory-mapping information resides in the simulated OS’s memory space.</p>
+<p>🔗 <strong><a href="https://github.com/RashidAGP/DICE-Simulator">GitHub Repository</a></strong><br />
+📄 <strong><a href="https://arxiv.org/abs/2607.24221">arXiv Paper</a></strong><br />
+📦 <strong><a href="https://zenodo.org/records/19428665">Artifact</a></strong></p>
 
 <hr />
 
-<h2 id="my-contribution"><strong>My Contribution</strong></h2>
+<h2 id="repository-contents">Repository Contents</h2>
 
-<p>The primary contribution can be found in the following commit: <a href="https://github.com/winterNan/gem5-parsec/commit/0f6bf132ef36cc9692b6cbc9e72ca5ed5b1ff05a">0f6bf13</a>.</p>
-
-<h3 id="challenges-overcome"><strong>Challenges Overcome</strong></h3>
-
-<p>While the ideal approach is to use the <code class="language-plaintext highlighter-rouge">-static</code> flag during compilation and linking with GCC, practical issues arise due to the following reasons:</p>
-<ul>
-  <li>Different PARSEC benchmarks depend on various external libraries.</li>
-  <li>These libraries use different build systems and dependencies.</li>
-  <li>Some benchmarks have <strong>corner cases in their <code class="language-plaintext highlighter-rouge">.ctor</code> sections</strong> that require manual construction when using static linking.</li>
-</ul>
-
-<hr />
-
-<h2 id="how-to-use-the-new-binaries"><strong>How to Use the New Binaries</strong></h2>
-
-<ol>
-  <li>Run <code class="language-plaintext highlighter-rouge">git clone https://github.com/winterNan/gem5-parsec</code></li>
-  <li>Run <code class="language-plaintext highlighter-rouge">install.sh</code> located in the root folder of the project.</li>
-  <li>Update the script by replacing <code class="language-plaintext highlighter-rouge">your_root_pwd</code> with your actual sudo password.</li>
-</ol>
-
-<p>Once these steps are completed, the new binaries should be ready for use in gem5.</p>
-
-<hr />
-
-<h2 id="previous-works-on-static-parsec"><strong>Previous Works on Static PARSEC</strong></h2>
-
-<p>There have been previous efforts to compile <strong>PARSEC-2.1</strong> with static linking, which can be found <a href="https://www.cs.utexas.edu/~cart/parsec_m5/">here</a>. However, these efforts have certain limitations:</p>
+<p>DICE models cross-package chiplet communication as a physical-layer-aware process rather than a fixed latency. The framework captures:</p>
 
 <ul>
-  <li>The PARSEC version used is outdated (<strong>PARSEC-2.1</strong>).</li>
-  <li>The target binaries were specifically prepared for the <strong>Alpha-21364</strong> architecture, which is no longer widely used.</li>
+  <li>Inter-chiplet PHY-link behavior</li>
+  <li>Signal integrity effects</li>
+  <li>Forward error correction and retransmission</li>
+  <li>Latency variability and stochastic link behavior</li>
+  <li>Architecture-level consequences of chiplet communication</li>
 </ul>
 
-<p>Despite these limitations, I acknowledge that this previous work provided valuable insights and inspiration for my own efforts in porting <strong>PARSEC-3.0</strong> to static linking for gem5.</p>
+<h2 id="how-to-use">How to Use</h2>
 
+<p>Follow the README in the GitHub repository for setup, build, and usage instructions.</p>
 
         
       </section>
@@ -358,11 +327,11 @@ Without static linking, backtracing becomes challenging, especially in a <strong
     <h4 class="page__share-title">Share on</h4>
   
 
-  <a href="https://x.com/intent/post?text=http://localhost:4000/tools/2012-static-parsec" class="btn btn--x" title="Share on X"><i class="fab fa-x-twitter" aria-hidden="true"></i><span> X (formerly Twitter)</span></a>
+  <a href="https://x.com/intent/post?text=http://localhost:4000/tools/2026-dice-simulator" class="btn btn--x" title="Share on X"><i class="fab fa-x-twitter" aria-hidden="true"></i><span> X (formerly Twitter)</span></a>
 
-  <a href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/tools/2012-static-parsec" class="btn btn--facebook" title="Share on Facebook"><i class="fab fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/tools/2026-dice-simulator" class="btn btn--facebook" title="Share on Facebook"><i class="fab fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
 
-  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/tools/2012-static-parsec" class="btn btn--linkedin" title="Share on LinkedIn"><i class="fab fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/tools/2026-dice-simulator" class="btn btn--linkedin" title="Share on LinkedIn"><i class="fab fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
 </section>
 
 
@@ -371,11 +340,11 @@ Without static linking, backtracing becomes challenging, especially in a <strong
 
   <nav class="pagination">
     
-      <a href="#" class="pagination--pager disabled">Previous</a>
+      <a href="http://localhost:4000/tools/2024-tangramfp" class="pagination--pager" title="TangramFP
+">Previous</a>
     
     
-      <a href="http://localhost:4000/tools/2021-static-whisper" class="pagination--pager" title="Statically-linked WHISPER benchmarks
-">Next</a>
+      <a href="#" class="pagination--pager disabled">Next</a>
     
   </nav>
 
